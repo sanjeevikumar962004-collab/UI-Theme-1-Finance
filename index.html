@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stackly – Your Financial Assistance</title>
+    <meta name="description"
+        content="Stackly helps you manage all kinds of financial transactions with ease. Your financial assistance, all in your hand." />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@600&family=Poppins:wght@500;600&family=Montserrat:wght@400;500;600;700;800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="preloader.css" />
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="loader-wrapper" id="preloader">
+        <div class="loader">
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__ball"></div>
+        </div>
+    </div>
+    <!-- ===================== NAVBAR ===================== -->
+    <header class="navbar" id="navbar">
+        <div class="nav-container">
+            <!-- Logo -->
+            <a href="index.html" class="nav-logo" id="nav-logo-link" aria-label="Stackly Home">
+                <img src="assets/images/stackly logo.webp" alt="Stackly Logo" class="logo-img" id="logo-img" />
+            </a>
+
+            <!-- Nav Links -->
+            <nav class="nav-links" id="nav-links" aria-label="Main navigation">
+                <a href="./index.html" class="nav-link active" id="nav-home">Home</a>
+                <a href="./product.html" class="nav-link" id="nav-product">Product</a>
+                <a href="./pricing.html" class="nav-link" id="nav-pricing">Pricing</a>
+                <a href="./contact.html" class="nav-link" id="nav-contact">Contact</a>
+                <a href="./about.html" class="nav-link" id="nav-about">About</a>
+            </nav>
+
+            <!-- CTA Buttons -->
+            <div class="nav-actions" id="nav-actions">
+                <a href="./login.html?mode=login" class="btn-login" id="btn-login">Login</a>
+                <a href="./login.html?mode=signup" class="btn-member" id="btn-member-nav">
+                    Become a member <span class="btn-arrow">→</span>
+                </a>
+            </div>
+
+            <!-- Mobile Hamburger -->
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                <span class="ham-line"></span>
+                <span class="ham-line"></span>
+                <span class="ham-line"></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="./index.html" class="mobile-link" id="mob-home">Home</a>
+            <a href="./product.html" class="mobile-link" id="mob-product">Product</a>
+            <a href="./pricing.html" class="mobile-link" id="mob-pricing">Pricing</a>
+            <a href="./contact.html" class="mobile-link" id="mob-contact">Contact</a>
+            <a href="./about.html" class="mobile-link" id="mob-about">About</a>
+            <a href="./login.html?mode=login" class="mobile-link" id="mob-login">Login</a>
+            <a href="./login.html?mode=signup" class="btn-member mobile-btn-member" id="mob-member">
+                Become a member →
+            </a>
+        </div>
+    </header>
+
+    <!-- ===================== HERO SECTION ===================== -->
+    <section class="hero" id="hero">
+        <div class="hero-container">
+            <!-- Hero Left Content -->
+            <div class="hero-content" id="hero-content">
+                <h1 class="hero-title" id="hero-title">
+                    <span class="desktop-only-text">Your Financial<br />Assistance</span>
+                    <span class="mobile-only-text">Your Financial Assistance we know how large objects will act, but things on a small scale.</span>
+                </h1>
+                <p class="hero-subtitle" id="hero-subtitle">
+                    <span class="desktop-only-text">We know how large objects will act,<br />but things on a small scale.</span>
+                    <span class="mobile-only-text">We know how large objects will act, but things on a small scale.</span>
+                </p>
+                <a href="./login.html?mode=signup" class="btn-member hero-btn" id="btn-hero-member">
+                    Become a member <span class="btn-arrow">→</span>
+                </a>
+            </div>
+
+            <!-- Hero Right – Woman with Circle -->
+            <div class="hero-visual" id="hero-visual">
+                <div class="hero-circle-2" id="hero-circle-2"></div>
+                <div class="hero-circle" id="hero-circle"></div>
+                <img src="assets/images/home hero.webp" alt="Financial Advisor" class="hero-woman" id="hero-woman" />
+            </div>
+        </div>
+
+        <!-- ===================== BOTTOM BAND ===================== -->
+        <div class="hero-bottom-band" id="hero-bottom-band">
+            <div class="band-container">
+                <h2 class="band-title" id="band-title">It's All in your Hand</h2>
+                <p class="band-subtitle" id="band-subtitle">
+                    Feel the comfort of doing all kinds of transactions <br> by accessing this site on
+                    <span class="brand-highlight" id="brand-highlight">@the stackly</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== FEATURES SECTION ===================== -->
+    <section class="features" id="features">
+        <div class="features-container">
+            <div class="features-header">
+                <h2 class="features-title">
+                    <span class="bullet-dot">•</span> Designed for Families Who Value Financial Security and Confidence
+                </h2>
+                <p class="features-subtitle">We are here to serve our hardwork</p>
+            </div>
+
+            <div class="features-grid">
+                <!-- Feature 1 -->
+                <div class="feature-card">
+                    <div class="feature-image-wrapper">
+                        <img src="assets/images/Ellipse 18.webp" alt="Feature 1" class="feature-img" />
+                    </div>
+                    <div class="feature-box white-box">
+                        <img src="assets/images/people icon blue box.webp" alt="People Icon" class="feature-icon" />
+                        <h3 class="feature-box-title">Support On Raising Funds</h3>
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="feature-card">
+                    <div class="feature-image-wrapper">
+                        <img src="assets/images/Ellipse 20.webp" alt="Feature 2" class="feature-img" />
+                    </div>
+                    <div class="feature-box blue-box">
+                        <img src="assets/images/people icon white box.webp" alt="People Icon" class="feature-icon" />
+                        <h3 class="feature-box-title">Investment Trading</h3>
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="feature-card">
+                    <div class="feature-image-wrapper">
+                        <img src="assets/images/Ellipse 19.webp" alt="Feature 3" class="feature-img" />
+                    </div>
+                    <div class="feature-box white-box">
+                        <img src="assets/images/people icon blue box.webp" alt="People Icon" class="feature-icon" />
+                        <h3 class="feature-box-title">Financial Analysis</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== PRICING SECTION ===================== -->
+    <section class="pricing" id="pricing">
+        <div class="pricing-container">
+            <div class="pricing-header">
+                <h2 class="pricing-title">Simple, Transparent Pricing</h2>
+                <p class="pricing-subtitle">Choose The Perfect Plan To Manage Your Finances With Confidence. Upgrade Anytime As Your Business Grows.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Basic Plan -->
+                <div class="pricing-card">
+                    <h3 class="plan-name">Basic</h3>
+                    <div class="plan-price">$190/</div>
+                    <div class="plan-period">Per Month</div>
+                    <div class="plan-features">
+                        <h4>Features</h4>
+                        <ul>
+                            <li>Basic Account Features</li>
+                            <li>Limited Transactions</li>
+                            <li>Basic Customer Support</li>
+                            <li>Customizable Permissions</li>
+                            <li>Advanced Reporting</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn-plan">Click Here</a>
+                </div>
+
+                <!-- Advanced Plan -->
+                <div class="pricing-card">
+                    <h3 class="plan-name">Advanced</h3>
+                    <div class="plan-price">$280/</div>
+                    <div class="plan-period">Per Month</div>
+                    <div class="plan-features">
+                        <h4>Features</h4>
+                        <ul>
+                            <li>Basic Account Features</li>
+                            <li>Limited Transactions</li>
+                            <li>Basic Customer Support</li>
+                            <li>Customizable Permissions</li>
+                            <li>Advanced Reporting</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn-plan">Click Here</a>
+                </div>
+
+                <!-- Business Plan -->
+                <div class="pricing-card">
+                    <h3 class="plan-name">Business</h3>
+                    <div class="plan-price">$490/</div>
+                    <div class="plan-period">Per Month</div>
+                    <div class="plan-features">
+                        <h4>Features</h4>
+                        <ul>
+                            <li>Basic Account Features</li>
+                            <li>Limited Transactions</li>
+                            <li>Basic Customer Support</li>
+                            <li>Customizable Permissions</li>
+                            <li>Advanced Reporting</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn-plan">Click Here</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== TESTIMONIALS SECTION ===================== -->
+    <section class="testimonials" id="testimonials">
+        <div class="testimonials-container">
+            <div class="testimonials-header">
+                <h2 class="testimonials-title">What Clients Say</h2>
+                <p class="testimonials-subtitle">Problems trying to resolve the conflict between<br>the two major realms of Classical physics: Newtonian mechanics</p>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="client-avatar">
+                    <img src="assets/images/client says image.webp" alt="Client Ranganadh Thatha" />
+                </div>
+                <div class="stars-gray-wrapper">
+                    <img src="assets/images/stars.webp" alt="rating stars" class="stars-gray-img" />
+                </div>
+                <p class="testimonial-text">
+                    I was doing my financial planning based on my own study. But I was not sure whether I was going in right direction. I was looking for fee only financial planner. I came to know about Wealth crafts (Vivek) while searching on Internet. Initially I was hesitant as I was connecting for the first time and I didn't know them before. I felt comfortable when I talked to Vivek during initial video call. It's been almost 3 months with Vivek. He was very professional and responsive. He understood my financial background, goals/dreams and guided me very well so far. Not only just giving suggestions, but educating me as well. He is always approachable.
+                </p>
+                <h4 class="client-name-real">Ranganadh Thatha</h4>
+                <p class="client-role-real">Architect - Sony India Software Centre</p>
+                
+                <div class="stars-yellow-wrapper">
+                    <img src="assets/images/star colored.webp" alt="star" />
+                    <img src="assets/images/star colored.webp" alt="star" />
+                    <img src="assets/images/star colored.webp" alt="star" />
+                    <img src="assets/images/star colored.webp" alt="star" />
+                    <img src="assets/images/star uncolored.webp" alt="star" />
+                </div>
+                <h4 class="client-name-alias">Thomas Villey</h4>
+                <p class="client-role-alias">Designer</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== DOWNLOAD SECTION ===================== -->
+    <section class="download-app" id="download-app">
+        <div class="download-container">
+            <div class="download-header">
+                <h2 class="download-title">Download Our App</h2>
+                <p class="download-subtitle">Problems trying to resolve the conflict between<br>the two major realms of Classical physics: Newtonian mechanics</p>
+            </div>
+            
+            <div class="download-buttons">
+                <a href="#" class="store-btn">
+                    <img src="assets/images/apple store.webp" alt="Download on App Store" />
+                </a>
+                <a href="#" class="store-btn">
+                    <img src="assets/images/playstore.webp" alt="Download on Google Play" />
+                </a>
+                <a href="#" class="store-btn">
+                    <img src="assets/images/windows store.webp" alt="Download on Windows Store" />
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== BRANCHES & CONTACT SECTION ===================== -->
+    <section class="branches-contact" id="branches-contact">
+        <div class="branches-container">
+            <div class="branches-content desktop-only-branches">
+                <div class="branches-text">
+                    <h2 class="branches-title">We Have Branches All<br>Over The World</h2>
+                    <p class="branches-subtitle">The gradual accumulation of information about atomic and small-scale behaviour during the first quarter of the 20th century, which gave some indications about how small things do behave, produced an increasing confusion which was Heisenberg, and Born.</p>
+                </div>
+                <div class="branches-map">
+                    <img src="assets/images/map.webp" alt="World Map" />
+                </div>
+            </div>
+
+            <!-- Mobile Contact Header -->
+            <div class="mobile-contact-header">
+                <h2>Contact Us</h2>
+                <p>Have Questions About Our Financial Services? Our Team Is Here To Help You Every Step Of The Way.</p>
+            </div>
+
+            <!-- Contact Card Container -->
+            <div class="contact-card">
+                <div class="contact-image desktop-only-image">
+                    <img src="assets/images/contact-woman.webp" alt="Contact Us" />
+                </div>
+                <div class="contact-form-wrapper">
+                    <h3 class="form-title desktop-only-title">Contact us</h3>
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <label class="desktop-only-label">Name *</label>
+                            <input type="text" placeholder="Your Name" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="desktop-only-label">Email address *</label>
+                            <input type="email" placeholder="Your Email" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="desktop-only-label">Subject *</label>
+                            <input type="text" placeholder="Your Subject" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="desktop-only-label">Message *</label>
+                            <textarea placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit-contact">Send Message <span class="btn-arrow" style="margin-left: 10px;">→</span></button>
+                    </form>
+                </div>
+            </div>
+
+            <p class="branches-footer-text">
+                Contact Us Today And Discover How Stackly Can Help You Achieve Your Financial Goals.
+            </p>
+        </div>
+    </section>
+
+    <!-- ===================== PARTNER SECTION ===================== -->
+    <section class="partner-journey" id="partner-journey">
+        <div class="partner-container">
+            <div class="partner-image-box">
+                <img src="assets/images/Rectangle 1055 (3).webp" alt="Our team" class="partner-banner-img" />
+            </div>
+            <h2 class="partner-title">Your trusted partner for every financial journey</h2>
+            <p class="partner-subtitle">Enjoy secure banking, personalized financial advice, and innovative digital solutions that make managing your money simpler than ever.</p>
+        </div>
+    </section>
+
+    <!-- ===================== FOOTER SECTION ===================== -->
+    <footer class="main-footer" id="main-footer">
+        <div class="footer-container">
+            <div class="footer-columns">
+                <!-- Column 1 -->
+                <div class="footer-column col-get-touch">
+                    <h3>Get In Touch</h3>
+                    <p>the quick fox jumps over the Stackly</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">
+                            <img src="assets/images/facebook.webp" alt="Facebook" />
+                        </a>
+                        <a href="#" class="social-icon">
+                            <img src="assets/images/instagram.webp" alt="Instagram" />
+                        </a>
+                        <a href="#" class="social-icon">
+                            <img src="assets/images/twitter.webp" alt="Twitter" />
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Column 2 -->
+                <div class="footer-column">
+                    <h3>Company info</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Carrier</a></li>
+                        <li><a href="#">We are hiring</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <!-- Column 3 -->
+                <div class="footer-column">
+                    <h3>Features</h3>
+                    <ul>
+                        <li><a href="#">Business Marketing</a></li>
+                        <li><a href="#">User Analytic</a></li>
+                        <li><a href="#">Live Chat</a></li>
+                        <li><a href="#">Unlimited Support</a></li>
+                    </ul>
+                </div>
+                <!-- Column 4 -->
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">IOS & Android</a></li>
+                        <li><a href="#">Watch a Demo</a></li>
+                        <li><a href="#">Customers</a></li>
+                        <li><a href="#">API</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>All Right Reserved in Stackly</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="validation.js"></script>
+</body>
+
+</html>

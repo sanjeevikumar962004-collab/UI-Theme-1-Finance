@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        sidebarBg: '#3F5665',
+                        sidebarActive: 'rgba(255, 255, 255, 0.1)',
+                        sidebarText: '#A1B1BB',
+                        headerBg: '#96DDE8',
+                        pageBg: '#FFFFFF',
+                        cardBg: '#F5F6F8',
+                        textDark: '#1E2329',
+                        textMuted: '#718096',
+                        accentBlue: '#71B6D5',
+                        accentMagenta: '#DA45E8',
+                        positive: '#22C55E',
+                        negative: '#EF4444'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #FFFFFF; font-family: 'Poppins', sans-serif; transition: background-color 0.3s, color 0.3s; }
+        
+        /* Custom sidebar scrollbar */
+        .sidebar-scroll::-webkit-scrollbar { width: 4px; }
+        .sidebar-scroll::-webkit-scrollbar-track { background: transparent; }
+        .sidebar-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 10px; }
+        
+        /* Custom main content scrollbar */
+        .main-scroll::-webkit-scrollbar { width: 6px; }
+        .main-scroll::-webkit-scrollbar-track { background: transparent; }
+        .main-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        
+        .sidebar-divider { border-top: 2px dotted #5C7687; margin: 1.5rem 0; }
+        canvas { display: block; }
+        
+        /* Nav active state */
+        .nav-link.active { color: white; background-color: rgba(255, 255, 255, 0.05); border-right: 3px solid #96DDE8; }
+        
+        /* Dark mode overrides */
+        .dark body { background-color: #12181E; }
+        .dark .bg-pageBg { background-color: #12181E; }
+        .dark .bg-cardBg { background-color: #1A222B; }
+        .dark .text-textDark { color: #F3F4F6; }
+        .dark .bg-headerBg { background-color: #2D414F; border-color: #1A222B; }
+        .dark .text-[#141B23] { color: #FFFFFF; }
+        .dark .bg-white { background-color: #1E293B; border-color: #334155; color: white;}
+    </style>
+    <link rel="stylesheet" href="preloader.css" />
+</head>
+<body class="text-textDark h-screen flex overflow-hidden">
+    <!-- Preloader -->
+    <div class="loader-wrapper" id="preloader">
+        <div class="loader">
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__ball"></div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-[260px] bg-sidebarBg flex-col transition-all duration-300 z-50 flex-shrink-0 hidden md:flex absolute md:relative h-full">
+        <div class="py-8 px-6 bg-sidebarBg flex justify-between items-center">
+            <a href="index.html" class="text-white hover:opacity-90 transition-opacity" style="text-decoration: none; display: block;">
+                <h2 class="text-2xl font-bold tracking-wider flex items-center gap-3 text-white">
+                    <img src="assets/images/stackly logo.webp" alt="Stackly Logo" class="h-8 w-auto object-contain" />
+                </h2>
+            </a>
+            <button id="close-sidebar" class="md:hidden text-white/70 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <nav class="flex-1 overflow-y-auto sidebar-scroll py-4 space-y-1" id="sidebar-nav">
+            <a href="#" onclick="switchTab('dashboard')" class="nav-link active flex items-center gap-4 px-6 py-3 font-semibold text-sidebarText hover:text-white transition-all cursor-pointer">
+                <i class="fa-solid fa-house-chimney w-5 text-center text-lg"></i>
+                <span class="tracking-wide">Dashboard</span>
+            </a>
+            <a href="#" onclick="switchTab('total-balance')" class="nav-link flex items-center gap-4 px-6 py-3 font-semibold text-sidebarText hover:text-white transition-all cursor-pointer">
+                <i class="fa-solid fa-chart-column w-5 text-center text-lg"></i>
+                <span class="tracking-wide">Total Balance</span>
+            </a>
+            <a href="#" onclick="switchTab('cards')" class="nav-link flex items-center gap-4 px-6 py-3 font-semibold text-sidebarText hover:text-white transition-all cursor-pointer">
+                <i class="fa-regular fa-credit-card w-5 text-center text-lg"></i>
+                <span class="tracking-wide">Credit/Debit Cards</span>
+            </a>
+            <a href="#" onclick="switchTab('income')" class="nav-link flex items-center gap-4 px-6 py-3 font-semibold text-sidebarText hover:text-white transition-all cursor-pointer">
+                <i class="fa-solid fa-sack-dollar w-5 text-center text-lg"></i>
+                <span class="tracking-wide">Income Chart</span>
+            </a>
+            <a href="#" onclick="switchTab('revenue')" class="nav-link flex items-center gap-4 px-6 py-3 font-semibold text-sidebarText hover:text-white transition-all cursor-pointer">
+                <i class="fa-solid fa-arrow-trend-up w-5 text-center text-lg"></i>
+                <span class="tracking-wide">Revenue Analytics</span>
+            </a>
+            <a href="#" onclick="switchTab('monthly')" class="nav-link flex items-center gap-4 px-6 py-3 font-semibold text-sidebarText hover:text-white transition-all cursor-pointer">
+                <i class="fa-solid fa-calendar-days w-5 text-center text-lg"></i>
+                <span class="tracking-wide">Monthly Report</span>
+            </a>
+            
+            <div class="sidebar-divider w-full"></div>
+            
+            <a href="#" onclick="switchTab('transactions')" class="nav-link flex items-center gap-4 px-6 py-3 font-semibold text-sidebarText hover:text-white transition-all cursor-pointer">
+                <i class="fa-solid fa-money-bill-transfer w-5 text-center text-lg"></i>
+                <span class="tracking-wide">Recent Transactions</span>
+            </a>
+            <a href="#" onclick="switchTab('invoices')" class="nav-link flex items-center gap-4 px-6 py-3 font-semibold text-sidebarText hover:text-white transition-all cursor-pointer">
+                <i class="fa-solid fa-file-invoice w-5 text-center text-lg"></i>
+                <span class="tracking-wide">Bills & Invoices</span>
+            </a>
+            <a href="#" onclick="switchTab('customers')" class="nav-link flex items-center gap-4 px-6 py-3 font-semibold text-sidebarText hover:text-white transition-all cursor-pointer">
+                <i class="fa-solid fa-user-group w-5 text-center text-lg"></i>
+                <span class="tracking-wide">Customer Accounts</span>
+            </a>
+            
+            <div class="pt-8 space-y-1">
+                <a href="#" onclick="switchTab('settings')" class="nav-link flex items-center gap-4 px-6 py-3 font-semibold text-sidebarText hover:text-white transition-all cursor-pointer">
+                    <i class="fa-solid fa-gear w-5 text-center text-lg"></i>
+                    <span class="tracking-wide">Settings</span>
+                </a>
+                <a href="#" onclick="toggleTheme()" class="flex items-center gap-4 px-6 py-3 font-semibold text-sidebarText hover:text-white transition-all cursor-pointer">
+                    <i class="fa-solid fa-moon w-5 text-center text-lg" id="theme-icon"></i>
+                    <span class="tracking-wide" id="theme-text">Light/Dark Mode</span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="p-4">
+            <div class="bg-[#2D414F] rounded-xl p-3 flex items-center justify-between cursor-pointer shadow-md hover:bg-[#344b5a] transition-colors">
+                <div class="flex items-center gap-3">
+                    <img src="assets/images/vikas jo.webp" alt="Admin" class="w-10 h-10 rounded-full object-cover border border-white/10">
+                    <div>
+                        <h4 class="text-sm font-bold text-white tracking-wide" id="admin-display-name">Admin User</h4>
+                        <p class="text-[10px] text-white/60 tracking-wider">Super Administrator</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-down text-white/60 text-xs pr-1"></i>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="flex-1 flex flex-col h-screen overflow-hidden bg-pageBg relative">
+        
+        <header class="bg-headerBg px-4 md:px-8 py-5 md:py-7 flex justify-between items-center z-10 shrink-0 border-b border-headerBg/50 shadow-sm transition-colors relative">
+            <div class="flex items-center gap-4">
+                <button id="mobile-menu-btn" class="md:hidden text-2xl text-[#141B23]">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div>
+                    <h1 class="text-[20px] md:text-[22px] font-bold text-[#141B23] mb-1" id="header-title">welcome back, <span id="admin-welcome-name">Admin</span></h1>
+                    <p class="text-[#597880] text-[12px] md:text-[13px] font-semibold tracking-wide dark:text-gray-300" id="header-subtitle">Here's What's happening with your finance today</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-6">
+                <div class="relative hidden sm:flex items-center text-[#141B23]">
+                    <input type="text" placeholder="Search..." class="bg-transparent border-b border-gray-700/30 pb-1 pr-8 focus:outline-none placeholder-gray-700 font-medium w-48 transition-all focus:border-gray-900 focus:w-64 dark:text-white dark:border-white/30 dark:placeholder-gray-300">
+                    <i class="fa-solid fa-magnifying-glass absolute right-0 top-1 text-gray-800 cursor-pointer hover:text-black dark:text-white/80 dark:hover:text-white"></i>
+                </div>
+                <button class="relative text-[#141B23]">
+                    <i class="fa-solid fa-bell text-xl"></i>
+                    <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#252525] dark:bg-white rounded-full border border-headerBg"></span>
+                </button>
+            </div>
+        </header>
+
+        <main class="flex-1 overflow-y-auto main-scroll p-4 md:p-8">
+            <div class="max-w-[1500px] mx-auto space-y-6 relative h-full">
+                
+                <!-- VIEW 1: DASHBOARD (Original Content) -->
+                <div id="view-dashboard" class="content-view block animate-[fadeIn_0.3s_ease-in-out]">
+                    <!-- KPI Cards Row -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                        <!-- Total Revenue -->
+                        <div class="bg-cardBg rounded-[20px] p-6 shadow-sm">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-7 h-7 rounded-full bg-[#1A1A1A] dark:bg-white dark:text-black flex items-center justify-center text-white text-[10px]">
+                                    <i class="fa-solid fa-dollar-sign"></i>
+                                </div>
+                                <span class="text-xs font-semibold text-gray-500">Total Revenue</span>
+                            </div>
+                            <h3 class="text-3xl font-bold text-textDark mb-4">$2,450,120</h3>
+                            <div class="flex items-center gap-1.5 text-[10px] font-bold">
+                                <span class="text-positive"><i class="fa-solid fa-arrow-up text-[9px]"></i> +12%</span>
+                                <span class="text-gray-400 font-medium">vs last month</span>
+                            </div>
+                        </div>
+
+                        <!-- Total Expenses -->
+                        <div class="bg-cardBg rounded-[20px] p-6 shadow-sm">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-7 h-7 rounded-full bg-[#F5B546] flex items-center justify-center text-white text-[10px]">
+                                    <i class="fa-solid fa-receipt"></i>
+                                </div>
+                                <span class="text-xs font-semibold text-gray-500">Total Expenses</span>
+                            </div>
+                            <h3 class="text-3xl font-bold text-textDark mb-4">$1,125,340</h3>
+                            <div class="flex items-center gap-1.5 text-[10px] font-bold">
+                                <span class="text-negative"><i class="fa-solid fa-arrow-down text-[9px]"></i> +12%</span>
+                                <span class="text-gray-400 font-medium">vs last month</span>
+                            </div>
+                        </div>
+
+                        <!-- Net Profit -->
+                        <div class="bg-cardBg rounded-[20px] p-6 shadow-sm">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-7 h-7 rounded-full bg-[#1A1A1A] dark:bg-white dark:text-black flex items-center justify-center text-white text-[10px]">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                </div>
+                                <span class="text-xs font-semibold text-gray-500">Net Profit</span>
+                            </div>
+                            <h3 class="text-3xl font-bold text-textDark mb-4">$1,324,630</h3>
+                            <div class="flex items-center gap-1.5 text-[10px] font-bold">
+                                <span class="text-positive"><i class="fa-solid fa-arrow-up text-[9px]"></i> +12%</span>
+                                <span class="text-gray-400 font-medium">vs last month</span>
+                            </div>
+                        </div>
+
+                        <!-- Total Revenue (2) -->
+                        <div class="bg-cardBg rounded-[20px] p-6 shadow-sm">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-7 h-7 rounded-full bg-[#1A1A1A] dark:bg-white dark:text-black flex items-center justify-center text-white text-[10px]">
+                                    <i class="fa-solid fa-building-columns"></i>
+                                </div>
+                                <span class="text-xs font-semibold text-gray-500">Total Bank Balance</span>
+                            </div>
+                            <h3 class="text-3xl font-bold text-textDark mb-4">$8,750,300</h3>
+                            <div class="flex items-center gap-1.5 text-[10px] font-bold">
+                                <span class="text-positive"><i class="fa-solid fa-arrow-up text-[9px]"></i> +12%</span>
+                                <span class="text-gray-400 font-medium">vs last month</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                        <!-- Revenue Overview Chart -->
+                        <div class="lg:col-span-2 bg-cardBg rounded-[20px] p-6 shadow-sm flex flex-col relative overflow-hidden">
+                            <div class="flex justify-between items-start mb-2 relative z-10">
+                                <div>
+                                    <h3 class="text-[11px] font-bold text-textDark mb-0.5">Revenue Overview</h3>
+                                    <h2 class="text-2xl font-bold text-textDark">$8,6780.60</h2>
+                                </div>
+                                <div class="text-[10px] text-gray-600 font-medium mt-1">
+                                    10 May - 20 May
+                                </div>
+                            </div>
+                            <div class="flex-1 w-full relative min-h-[220px] mt-4">
+                                <canvas id="revenueOverviewChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Expenses by Category -->
+                        <div class="lg:col-span-1 bg-cardBg rounded-[20px] p-6 shadow-sm flex flex-col relative overflow-hidden">
+                            <div class="flex justify-between items-start mb-6">
+                                <h3 class="text-[13px] font-extrabold text-textDark mt-1">Expenses by Category</h3>
+                                <button class="px-2.5 py-1 bg-white border border-gray-300 text-textDark text-[9px] font-bold hover:bg-gray-50 rounded-sm">
+                                    This Month
+                                </button>
+                            </div>
+
+                            <div class="flex flex-row items-center justify-between flex-1 gap-2">
+                                <div class="space-y-4 w-[55%]">
+                                    <div class="flex flex-col text-[9px] font-semibold text-textDark">
+                                        <div class="flex items-center gap-2 mb-0.5"><span class="w-2 h-2 rounded-full bg-[#71B6D5]"></span><span class="font-bold">Operations</span></div>
+                                        <div class="flex justify-between pl-4 text-[10px]"><span>$425,250</span><span class="font-normal text-gray-500">(37.8%)</span></div>
+                                    </div>
+                                    <div class="flex flex-col text-[9px] font-semibold text-textDark">
+                                        <div class="flex items-center gap-2 mb-0.5"><span class="w-2 h-2 rounded-full bg-[#DA45E8]"></span><span class="font-bold">Marketing</span></div>
+                                        <div class="flex justify-between pl-4 text-[10px]"><span>$235,600</span><span class="font-normal text-gray-500">(20.9%)</span></div>
+                                    </div>
+                                    <div class="flex flex-col text-[9px] font-semibold text-textDark">
+                                        <div class="flex items-center gap-2 mb-0.5"><span class="w-2 h-2 rounded-full bg-[#F5B546]"></span><span class="font-bold">Salaries</span></div>
+                                        <div class="flex justify-between pl-4 text-[10px]"><span>$275,350</span><span class="font-normal text-gray-500">(24.5%)</span></div>
+                                    </div>
+                                </div>
+                                <div class="w-[45%] aspect-square relative -ml-4">
+                                    <canvas id="expensesPieChart"></canvas>
+                                    <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-center pointer-events-none w-full">
+                                        <p class="text-[9px] font-bold text-gray-800 dark:text-gray-300 leading-tight">Total</p>
+                                        <p class="text-[9px] font-bold text-gray-900 dark:text-white leading-tight">$1,235,600</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- CashFlow Chart -->
+                        <div class="lg:col-span-2 bg-cardBg rounded-[20px] p-6 shadow-sm relative flex flex-col min-h-[260px]">
+                            <div class="flex justify-between items-center z-10 relative mb-4">
+                                <h3 class="text-[11px] font-bold text-textDark">CashFlow</h3>
+                                <button class="px-2.5 py-1 bg-white border border-gray-300 text-textDark text-[9px] font-bold hover:bg-gray-50 rounded-sm">
+                                    This Month
+                                </button>
+                            </div>
+
+                            <div class="relative flex justify-between z-10 px-2 mt-4">
+                                <div>
+                                    <p class="text-positive font-bold text-[13px] mb-0.5">Cash inflow</p>
+                                    <h3 class="text-[22px] font-bold text-textDark tracking-tight">$2,350,800</h3>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-negative font-bold text-[13px] mb-0.5">Cash outflow</p>
+                                    <h3 class="text-[22px] font-bold text-textDark tracking-tight">$1,245,600</h3>
+                                </div>
+                            </div>
+                            
+                            <div class="absolute inset-x-8 top-[110px] h-[80px]">
+                                <canvas id="cashflowLineChart"></canvas>
+                            </div>
+
+                            <div class="mt-auto text-center z-10 pb-2">
+                                <p class="text-textDark font-medium text-[11px] mb-0.5">Net Cash Flow</p>
+                                <h3 class="text-xl font-bold text-textDark">$1,105,200</h3>
+                            </div>
+                        </div>
+
+                        <!-- Transaction History -->
+                        <div class="lg:col-span-1 bg-cardBg rounded-[20px] p-6 shadow-sm flex flex-col">
+                            <h3 class="font-extrabold text-textDark text-[15px] mb-6">Transaction History</h3>
+                            <div class="space-y-6 flex-1 pr-1">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-4">
+                                        <img src="assets/images/jane cooper.webp" alt="Jane" class="w-11 h-11 rounded-full object-cover shadow-sm">
+                                        <div>
+                                            <h4 class="text-textDark font-bold text-sm tracking-wide">Jane Cooper</h4>
+                                            <p class="text-[#7D8895] text-[10px] font-medium mt-0.5">Dec 30, 2019 07:52</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-textDark font-semibold text-sm">$80.09</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-4">
+                                        <img src="assets/images/esther.webp" alt="Esther" class="w-11 h-11 rounded-full object-cover shadow-sm">
+                                        <div>
+                                            <h4 class="text-textDark font-bold text-sm tracking-wide">Esther Howard</h4>
+                                            <p class="text-[#7D8895] text-[10px] font-medium mt-0.5">Mar 20, 2019 23:14</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-textDark font-semibold text-sm">$80.09</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-4">
+                                        <img src="assets/images/jenny wilson.webp" alt="Jenny" class="w-11 h-11 rounded-full object-cover shadow-sm">
+                                        <div>
+                                            <h4 class="text-textDark font-bold text-sm tracking-wide">Jenny Wilson</h4>
+                                            <p class="text-[#7D8895] text-[10px] font-medium mt-0.5">Dec 7, 2019 23:26</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-textDark font-semibold text-sm">$80.09</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIEW 2: TOTAL BALANCE -->
+                <div id="view-total-balance" class="content-view hidden animate-[fadeIn_0.3s_ease-in-out]">
+                    <div class="bg-cardBg rounded-[20px] p-8 shadow-sm mb-6 flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-semibold text-gray-500 mb-2">Aggregated Net Worth</p>
+                            <h2 class="text-5xl font-extrabold text-textDark">$12,525,050.00</h2>
+                            <p class="text-positive font-bold text-sm mt-3"><i class="fa-solid fa-arrow-trend-up"></i> +4.5% from last month</p>
+                        </div>
+                        <button class="bg-textDark text-white px-6 py-3 rounded-lg font-bold hover:bg-gray-800 transition-colors">Withdraw Funds</button>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-cardBg rounded-[20px] p-6 border-t-4 border-accentBlue">
+                            <h3 class="text-textDark font-bold mb-1">Corporate Checking</h3>
+                            <p class="text-gray-500 text-xs mb-4">**** **** **** 4092</p>
+                            <p class="text-2xl font-bold text-textDark">$4,250,000</p>
+                        </div>
+                        <div class="bg-cardBg rounded-[20px] p-6 border-t-4 border-accentMagenta">
+                            <h3 class="text-textDark font-bold mb-1">High-Yield Savings</h3>
+                            <p class="text-gray-500 text-xs mb-4">**** **** **** 1029</p>
+                            <p class="text-2xl font-bold text-textDark">$6,100,050</p>
+                        </div>
+                        <div class="bg-cardBg rounded-[20px] p-6 border-t-4 border-positive">
+                            <h3 class="text-textDark font-bold mb-1">Investment Portfolio</h3>
+                            <p class="text-gray-500 text-xs mb-4">Managed by Vanguard</p>
+                            <p class="text-2xl font-bold text-textDark">$2,175,000</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIEW 3: CREDIT/DEBIT CARDS -->
+                <div id="view-cards" class="content-view hidden animate-[fadeIn_0.3s_ease-in-out]">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div class="space-y-6">
+                            <!-- Card 1 -->
+                            <div class="bg-gradient-to-br from-gray-800 to-black rounded-[20px] p-6 shadow-lg text-white relative overflow-hidden h-[220px] flex flex-col justify-between">
+                                <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-10 -mt-10"></div>
+                                <div class="flex justify-between items-center z-10">
+                                    <span class="font-bold tracking-widest text-lg">VISA</span>
+                                    <i class="fa-solid fa-wifi rotate-90 text-xl"></i>
+                                </div>
+                                <div class="z-10">
+                                    <p class="font-mono text-xl tracking-[4px] mb-2">4000 1234 5678 9010</p>
+                                    <div class="flex justify-between items-end">
+                                        <div>
+                                            <p class="text-[10px] text-gray-400 uppercase">Card Holder</p>
+                                            <p class="font-bold tracking-wide">ADMIN USER</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-[10px] text-gray-400 uppercase">Expires</p>
+                                            <p class="font-bold">12/28</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Card 2 -->
+                            <div class="bg-gradient-to-br from-accentBlue to-blue-500 rounded-[20px] p-6 shadow-lg text-white relative overflow-hidden h-[220px] flex flex-col justify-between">
+                                <div class="flex justify-between items-center z-10">
+                                    <span class="font-bold tracking-widest text-lg">MasterCard</span>
+                                    <i class="fa-solid fa-wifi rotate-90 text-xl"></i>
+                                </div>
+                                <div class="z-10">
+                                    <p class="font-mono text-xl tracking-[4px] mb-2">5100 8765 4321 0987</p>
+                                    <div class="flex justify-between items-end">
+                                        <div>
+                                            <p class="text-[10px] text-gray-200 uppercase">Card Holder</p>
+                                            <p class="font-bold tracking-wide">COMPANY INC</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-[10px] text-gray-200 uppercase">Expires</p>
+                                            <p class="font-bold">08/26</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-cardBg rounded-[20px] p-6 shadow-sm">
+                            <h3 class="font-bold text-textDark mb-6">Recent Card Activity</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-xl text-black shadow-sm"><i class="fa-brands fa-apple"></i></div>
+                                        <div>
+                                            <p class="font-bold text-sm text-textDark">Apple Store</p>
+                                            <p class="text-xs text-gray-500">**** 9010</p>
+                                        </div>
+                                    </div>
+                                    <p class="font-bold text-textDark">-$1,299.00</p>
+                                </div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-xl text-[#FF9900] shadow-sm"><i class="fa-brands fa-amazon"></i></div>
+                                        <div>
+                                            <p class="font-bold text-sm text-textDark">Amazon AWS</p>
+                                            <p class="text-xs text-gray-500">**** 0987</p>
+                                        </div>
+                                    </div>
+                                    <p class="font-bold text-textDark">-$450.00</p>
+                                </div>
+                            </div>
+                            <button class="w-full mt-6 py-3 border-2 border-dashed border-gray-300 rounded-xl text-gray-500 font-bold hover:bg-gray-50 hover:text-textDark transition-colors">
+                                + Add New Card
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIEW 4: INCOME CHART -->
+                <div id="view-income" class="content-view hidden animate-[fadeIn_0.3s_ease-in-out]">
+                    <div class="bg-cardBg rounded-[20px] p-8 shadow-sm">
+                        <h3 class="font-bold text-xl text-textDark mb-6">Income Sources Breakdown</h3>
+                        <div class="space-y-6">
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-bold text-sm text-textDark">Software Subscriptions (SaaS)</span>
+                                    <span class="font-bold text-sm text-textDark">65%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div class="bg-accentBlue h-2.5 rounded-full" style="width: 65%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-bold text-sm text-textDark">Consulting Services</span>
+                                    <span class="font-bold text-sm text-textDark">20%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div class="bg-accentMagenta h-2.5 rounded-full" style="width: 20%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-bold text-sm text-textDark">Affiliate & Partner Revenue</span>
+                                    <span class="font-bold text-sm text-textDark">10%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div class="bg-positive h-2.5 rounded-full" style="width: 10%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-bold text-sm text-textDark">Other Investments</span>
+                                    <span class="font-bold text-sm text-textDark">5%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div class="bg-gray-800 h-2.5 rounded-full" style="width: 5%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIEW 5: REVENUE ANALYTICS -->
+                <div id="view-revenue" class="content-view hidden animate-[fadeIn_0.3s_ease-in-out]">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                        <div class="bg-cardBg rounded-[20px] p-6 text-center">
+                            <p class="text-gray-500 font-semibold mb-2">Customer Acquisition Cost (CAC)</p>
+                            <h3 class="text-3xl font-bold text-textDark">$124.50</h3>
+                        </div>
+                        <div class="bg-cardBg rounded-[20px] p-6 text-center">
+                            <p class="text-gray-500 font-semibold mb-2">Lifetime Value (LTV)</p>
+                            <h3 class="text-3xl font-bold text-textDark">$3,450.00</h3>
+                        </div>
+                        <div class="bg-cardBg rounded-[20px] p-6 text-center border-2 border-accentBlue bg-blue-50/10">
+                            <p class="text-accentBlue font-semibold mb-2">Monthly Recurring Rev (MRR)</p>
+                            <h3 class="text-3xl font-bold text-textDark">$450,200</h3>
+                        </div>
+                    </div>
+                    <div class="bg-cardBg rounded-[20px] p-8 shadow-sm text-center py-20">
+                        <i class="fa-solid fa-chart-area text-6xl text-gray-300 mb-4"></i>
+                        <h2 class="text-xl font-bold text-textDark">Advanced Analytics Canvas</h2>
+                        <p class="text-gray-500 mt-2">Connect your Google Analytics or Stripe account to populate deep metrics.</p>
+                    </div>
+                </div>
+
+                <!-- VIEW 6: MONTHLY REPORT -->
+                <div id="view-monthly" class="content-view hidden animate-[fadeIn_0.3s_ease-in-out]">
+                    <div class="bg-cardBg rounded-[20px] p-8 shadow-sm">
+                        <div class="flex justify-between items-center mb-8">
+                            <div>
+                                <h2 class="text-2xl font-bold text-textDark">October 2023 Report</h2>
+                                <p class="text-gray-500">Generated on Nov 1, 2023</p>
+                            </div>
+                            <button class="bg-accentBlue text-white px-5 py-2.5 rounded-lg font-bold hover:bg-blue-600 flex items-center gap-2">
+                                <i class="fa-solid fa-download"></i> Download PDF
+                            </button>
+                        </div>
+                        <table class="w-full text-left">
+                            <thead>
+                                <tr class="text-gray-400 border-b border-gray-200">
+                                    <th class="pb-3 font-semibold">Metric</th>
+                                    <th class="pb-3 font-semibold">Previous Month</th>
+                                    <th class="pb-3 font-semibold">Current Month</th>
+                                    <th class="pb-3 font-semibold text-right">Growth</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-textDark text-sm font-medium">
+                                <tr class="border-b border-gray-100">
+                                    <td class="py-4">Gross Volume</td>
+                                    <td class="py-4">$1,850,000</td>
+                                    <td class="py-4">$2,450,120</td>
+                                    <td class="py-4 text-right text-positive">+32.4%</td>
+                                </tr>
+                                <tr class="border-b border-gray-100">
+                                    <td class="py-4">Net Profit</td>
+                                    <td class="py-4">$980,000</td>
+                                    <td class="py-4">$1,324,630</td>
+                                    <td class="py-4 text-right text-positive">+35.1%</td>
+                                </tr>
+                                <tr class="border-b border-gray-100">
+                                    <td class="py-4">Operating Expenses</td>
+                                    <td class="py-4">$870,000</td>
+                                    <td class="py-4">$1,125,340</td>
+                                    <td class="py-4 text-right text-negative">+29.3%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- VIEW 7: RECENT TRANSACTIONS -->
+                <div id="view-transactions" class="content-view hidden animate-[fadeIn_0.3s_ease-in-out]">
+                    <div class="bg-cardBg rounded-[20px] p-6 shadow-sm">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-xl font-bold text-textDark">All Transactions</h2>
+                            <div class="flex gap-2">
+                                <input type="text" placeholder="Search..." class="px-4 py-2 rounded-lg border border-gray-200 text-sm focus:outline-none dark:bg-[#1E293B] dark:border-gray-600">
+                                <button class="px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-semibold hover:bg-gray-50 dark:bg-[#1E293B] dark:border-gray-600 dark:text-white">Filter</button>
+                            </div>
+                        </div>
+                        <table class="w-full text-left">
+                            <thead>
+                                <tr class="text-gray-400 text-xs uppercase tracking-wider border-b border-gray-200">
+                                    <th class="pb-3 font-semibold">Transaction ID</th>
+                                    <th class="pb-3 font-semibold">Date</th>
+                                    <th class="pb-3 font-semibold">Description</th>
+                                    <th class="pb-3 font-semibold">Amount</th>
+                                    <th class="pb-3 font-semibold text-right">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm font-medium">
+                                <tr class="border-b border-gray-100">
+                                    <td class="py-4 text-gray-500">#TRX-9021</td>
+                                    <td class="py-4 text-textDark">Oct 24, 2023</td>
+                                    <td class="py-4 text-textDark">Stripe Payout</td>
+                                    <td class="py-4 text-positive">+$45,200.00</td>
+                                    <td class="py-4 text-right"><span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">Completed</span></td>
+                                </tr>
+                                <tr class="border-b border-gray-100">
+                                    <td class="py-4 text-gray-500">#TRX-9022</td>
+                                    <td class="py-4 text-textDark">Oct 23, 2023</td>
+                                    <td class="py-4 text-textDark">AWS Hosting</td>
+                                    <td class="py-4 text-textDark">-$4,120.50</td>
+                                    <td class="py-4 text-right"><span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">Completed</span></td>
+                                </tr>
+                                <tr class="border-b border-gray-100">
+                                    <td class="py-4 text-gray-500">#TRX-9023</td>
+                                    <td class="py-4 text-textDark">Oct 22, 2023</td>
+                                    <td class="py-4 text-textDark">Client Refund</td>
+                                    <td class="py-4 text-textDark">-$150.00</td>
+                                    <td class="py-4 text-right"><span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-xs">Pending</span></td>
+                                </tr>
+                                <tr class="border-b border-gray-100">
+                                    <td class="py-4 text-gray-500">#TRX-9024</td>
+                                    <td class="py-4 text-textDark">Oct 21, 2023</td>
+                                    <td class="py-4 text-textDark">Wire Transfer (In)</td>
+                                    <td class="py-4 text-positive">+$12,500.00</td>
+                                    <td class="py-4 text-right"><span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">Completed</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- VIEW 8: BILLS & INVOICES -->
+                <div id="view-invoices" class="content-view hidden animate-[fadeIn_0.3s_ease-in-out]">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-bold text-textDark">Pending Invoices</h2>
+                        <button class="bg-black text-white dark:bg-white dark:text-black px-4 py-2 rounded-lg text-sm font-bold">+ Create Invoice</button>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-cardBg rounded-[20px] p-6 shadow-sm border border-gray-100">
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="bg-red-100 text-red-600 px-2 py-1 rounded text-xs font-bold">Overdue</span>
+                                <span class="text-gray-400 text-sm">#INV-001</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-textDark mb-1">Acme Corp</h3>
+                            <p class="text-gray-500 text-xs mb-4">Due: Oct 15, 2023</p>
+                            <div class="flex justify-between items-end mt-4">
+                                <p class="text-2xl font-bold text-textDark">$4,500</p>
+                                <button class="text-accentBlue font-bold text-sm hover:underline">Send Reminder</button>
+                            </div>
+                        </div>
+                        <div class="bg-cardBg rounded-[20px] p-6 shadow-sm border border-gray-100">
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-xs font-bold">Pending</span>
+                                <span class="text-gray-400 text-sm">#INV-002</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-textDark mb-1">Globex Inc</h3>
+                            <p class="text-gray-500 text-xs mb-4">Due: Nov 05, 2023</p>
+                            <div class="flex justify-between items-end mt-4">
+                                <p class="text-2xl font-bold text-textDark">$12,000</p>
+                                <button class="text-gray-500 font-bold text-sm hover:text-textDark">View Details</button>
+                            </div>
+                        </div>
+                        <div class="bg-cardBg rounded-[20px] p-6 shadow-sm border border-gray-100">
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-bold">Paid</span>
+                                <span class="text-gray-400 text-sm">#INV-003</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-textDark mb-1">Soylent Corp</h3>
+                            <p class="text-gray-500 text-xs mb-4">Paid on: Oct 20, 2023</p>
+                            <div class="flex justify-between items-end mt-4">
+                                <p class="text-2xl font-bold text-gray-400 line-through">$8,250</p>
+                                <button class="text-gray-500 font-bold text-sm hover:text-textDark">Receipt</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIEW 9: CUSTOMER ACCOUNTS -->
+                <div id="view-customers" class="content-view hidden animate-[fadeIn_0.3s_ease-in-out]">
+                    <div class="bg-cardBg rounded-[20px] p-6 shadow-sm">
+                        <h2 class="text-xl font-bold text-textDark mb-6">Customer Directory</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <!-- Customer Card -->
+                            <div class="bg-white dark:bg-[#1E293B] border border-gray-100 dark:border-gray-700 rounded-xl p-4 flex items-center gap-4">
+                                <img src="assets/images/regina rose.webp" alt="User" class="w-12 h-12 rounded-full">
+                                <div>
+                                    <h4 class="font-bold text-textDark text-sm">Alice Freeman</h4>
+                                    <p class="text-xs text-gray-500">alice@example.com</p>
+                                </div>
+                            </div>
+                            <div class="bg-white dark:bg-[#1E293B] border border-gray-100 dark:border-gray-700 rounded-xl p-4 flex items-center gap-4">
+                                <img src="assets/images/vikas jo.webp" alt="User" class="w-12 h-12 rounded-full">
+                                <div>
+                                    <h4 class="font-bold text-textDark text-sm">Bob Smith</h4>
+                                    <p class="text-xs text-gray-500">bob@example.com</p>
+                                </div>
+                            </div>
+                            <div class="bg-white dark:bg-[#1E293B] border border-gray-100 dark:border-gray-700 rounded-xl p-4 flex items-center gap-4">
+                                <img src="assets/images/rose emily.webp" alt="User" class="w-12 h-12 rounded-full">
+                                <div>
+                                    <h4 class="font-bold text-textDark text-sm">Chloe Decker</h4>
+                                    <p class="text-xs text-gray-500">chloe@example.com</p>
+                                </div>
+                            </div>
+                            <div class="bg-white dark:bg-[#1E293B] border border-gray-100 dark:border-gray-700 rounded-xl p-4 flex items-center gap-4">
+                                <img src="assets/images/james k.webp" alt="User" class="w-12 h-12 rounded-full">
+                                <div>
+                                    <h4 class="font-bold text-textDark text-sm">Dan Willis</h4>
+                                    <p class="text-xs text-gray-500">dan@example.com</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 text-center">
+                            <button class="text-accentBlue font-bold text-sm hover:underline">Load More Customers...</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIEW 10: SETTINGS -->
+                <div id="view-settings" class="content-view hidden animate-[fadeIn_0.3s_ease-in-out]">
+                    <div class="bg-cardBg rounded-[20px] p-8 shadow-sm max-w-2xl">
+                        <h2 class="text-2xl font-bold text-textDark mb-6">Account Settings</h2>
+                        <form class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-600 mb-2">Full Name</label>
+                                <input type="text" id="admin-settings-name" value="Admin User" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-accentBlue dark:bg-[#1E293B] dark:border-gray-600 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-600 mb-2">Email Address</label>
+                                <input type="email" id="admin-settings-email" value="admin@dashboard.com" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-accentBlue dark:bg-[#1E293B] dark:border-gray-600 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-600 mb-2">Role</label>
+                                <input type="text" value="Super Administrator" disabled class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-gray-50 text-gray-500 cursor-not-allowed dark:bg-gray-800 dark:border-gray-700">
+                            </div>
+                            <div class="pt-4 flex gap-4">
+                                <button type="button" id="admin-save-btn" class="bg-textDark text-white px-6 py-3 rounded-lg font-bold hover:bg-gray-800 transition-colors">Save Changes</button>
+                                <button type="button" class="bg-white border border-gray-300 text-textDark px-6 py-3 rounded-lg font-bold hover:bg-gray-50 transition-colors dark:bg-[#1E293B] dark:border-gray-600 dark:text-white">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Setup Chart Defaults for Poppins font
+        Chart.defaults.font.family = "'Poppins', sans-serif";
+        Chart.defaults.color = '#94a3b8';
+        Chart.defaults.plugins.tooltip.enabled = false;
+
+        // Initialize Charts specifically for the Dashboard view
+        function initCharts() {
+            // 1. Revenue Overview (Combo Chart)
+            const revCtx = document.getElementById('revenueOverviewChart');
+            if (revCtx) {
+                new Chart(revCtx.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Ju', 'Jul', 'Aug', 'Sep', 'Oct'],
+                        datasets: [
+                            {
+                                type: 'line', label: 'Trend',
+                                data: [-15, -10, 0, -5, 10, -5, 15, -15, 20, 30],
+                                borderColor: '#DA45E8', borderWidth: 1.5, tension: 0, pointRadius: 0, fill: false, order: 0
+                            },
+                            {
+                                type: 'bar', label: 'Revenue',
+                                data: [[-10, 10], [0, 20], [-25, 35], [-15, 25], [-5, 15], [-25, 30], [-10, 35], [-20, 15], [-5, 25], [10, 20]],
+                                backgroundColor: '#71B6D5', borderRadius: 2, barThickness: 26, order: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+                        scales: {
+                            x: { grid: { display: false, drawBorder: false }, ticks: { color: '#A0AEC0', font: { size: 10, weight: '500' } } },
+                            y: { display: true, position: 'left', grid: { color: '#E2E8F0', drawBorder: false, borderDash: [5, 5] }, ticks: { display: false }, min: -35, max: 45 }
+                        }
+                    }
+                });
+            }
+
+            // 2. Expenses by Category (Custom Pie Chart)
+            const expCtx = document.getElementById('expensesPieChart');
+            if (expCtx) {
+                new Chart(expCtx.getContext('2d'), {
+                    type: 'pie',
+                    data: {
+                        labels: ['Operations', 'Gap', 'Others'],
+                        datasets: [{ data: [75, 17, 8], backgroundColor: ['#71B6D5', 'transparent', '#DA45E8'], borderWidth: 0, hoverOffset: 0 }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, rotation: 180, plugins: { legend: { display: false } }, layout: { padding: 0 } }
+                });
+            }
+
+            // 3. CashFlow (Gradient Line Chart)
+            const cfCtx = document.getElementById('cashflowLineChart');
+            if (cfCtx) {
+                const ctx = cfCtx.getContext('2d');
+                const gradient = ctx.createLinearGradient(0, 0, cfCtx.parentElement.offsetWidth, 0);
+                gradient.addColorStop(0, '#71B6D5'); gradient.addColorStop(1, '#DA45E8'); 
+
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17'],
+                        datasets: [{ data: [10, 35, 30, 45, 25, 40, 35, 60, 45, 50, 45, 55, 30, 50, 65, 75, 80], borderColor: gradient, borderWidth: 1.5, tension: 0, pointRadius: 0, fill: false }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { display: false, min: 0, max: 100 } }, layout: { padding: 0 } }
+                });
+            }
+        }
+
+        // Run charts on load
+        initCharts();
+
+        // View Navigation Logic
+        function switchTab(targetId) {
+            // Update active state on sidebar links
+            const links = document.querySelectorAll('#sidebar-nav .nav-link');
+            links.forEach(link => {
+                link.classList.remove('active', 'text-white');
+                link.classList.add('text-sidebarText');
+            });
+            event.currentTarget.classList.add('active', 'text-white');
+            event.currentTarget.classList.remove('text-sidebarText');
+
+            // Hide all content views
+            const views = document.querySelectorAll('.content-view');
+            views.forEach(view => {
+                view.classList.remove('block');
+                view.classList.add('hidden');
+            });
+
+            // Show target view
+            document.getElementById('view-' + targetId).classList.remove('hidden');
+            document.getElementById('view-' + targetId).classList.add('block');
+
+            // Update Dynamic Header Text
+            const titles = {
+                'dashboard': ['welcome back, Admin', 'Here\'s What\'s happening with your finance today'],
+                'total-balance': ['Total Balance', 'Overview of all your connected accounts'],
+                'cards': ['Cards Management', 'Manage your corporate credit and debit cards'],
+                'income': ['Income Analytics', 'Breakdown of your revenue streams'],
+                'revenue': ['Revenue Analytics', 'Deep dive into your customer metrics'],
+                'monthly': ['Monthly Reports', 'Downloadable financial statements'],
+                'transactions': ['Transactions', 'History of all incoming and outgoing funds'],
+                'invoices': ['Bills & Invoices', 'Manage payables and receivables'],
+                'customers': ['Customers', 'Directory of your active users'],
+                'settings': ['Account Settings', 'Manage your profile and preferences']
+            };
+            
+            if (targetId === 'dashboard') {
+                const storedName = localStorage.getItem('name') || 'Admin';
+                document.getElementById('header-title').innerHTML = `welcome back, <span id="admin-welcome-name">${storedName}</span>`;
+            } else {
+                document.getElementById('header-title').innerText = titles[targetId][0];
+            }
+            document.getElementById('header-subtitle').innerText = titles[targetId][1];
+        }
+
+        // Theme Toggle Logic
+        let isDark = false;
+        function toggleTheme() {
+            isDark = !isDark;
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            
+            if (isDark) {
+                body.classList.add('dark');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                icon.classList.add('text-yellow-400');
+            } else {
+                body.classList.remove('dark');
+                icon.classList.remove('fa-sun', 'text-yellow-400');
+                icon.classList.add('fa-moon');
+            }
+            
+            if (themeText) {
+                themeText.innerText = isDark ? 'Light Mode' : 'Dark Mode';
+            }
+        }
+        
+        // Mobile Sidebar Toggle Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const closeSidebarBtn = document.getElementById('close-sidebar');
+        const sidebar = document.getElementById('sidebar');
+        
+        if (mobileMenuBtn && sidebar) {
+            mobileMenuBtn.addEventListener('click', () => {
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('flex');
+            });
+        }
+        
+        if (closeSidebarBtn && sidebar) {
+            closeSidebarBtn.addEventListener('click', () => {
+                sidebar.classList.add('hidden');
+                sidebar.classList.remove('flex');
+            });
+        }
+    </script>
+    <script src="validation.js"></script>
+</body>
+</html>

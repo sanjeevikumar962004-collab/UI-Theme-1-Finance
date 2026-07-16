@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 – Page Not Found | Stackly Financial</title>
+    <meta name="description" content="The page you are looking for might have been removed, had its name changed, or is temporarily unavailable." />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&family=Poppins:wght@500;600&family=Montserrat:wght@400;500;600;700;800;900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+
+        /* Override body to keep the 404-specific gradient */
+        body {
+            background: linear-gradient(160deg, #2d5566 0%, #3a6a7a 35%, #385868 65%, #2a4d5e 100%);
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ============================================================
+           404 FULL-SCREEN WRAPPER
+        ============================================================ */
+        .page-404 {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* ============================================================
+           YELLOW ORGANIC BLOB — TOP LEFT
+           Large round kidney/amorphous shape at top-left
+        ============================================================ */
+        .blob-tl {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .blob-br {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .blob-svg-tl {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 42vw;
+            height: 70vh;
+            z-index: 1;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .blob-svg-br {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 48vw;
+            height: 55vh;
+            z-index: 1;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        /* ============================================================
+           GREEN TOPOGRAPHIC SPIRAL CONTOURS — LEFT SIDE
+           Organic fingerprint-like nested irregular ovals on left
+        ============================================================ */
+        .topo-green-svg {
+            position: absolute;
+            left: 10vw;
+            top: 16vh;
+            width: 20vw;
+            height: 44vh;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        /* ============================================================
+           ORANGE ELLIPSE CONTOURS — UPPER RIGHT
+           Nested elongated concentric ellipses rotated slightly
+        ============================================================ */
+        .topo-orange-svg {
+            position: absolute;
+            top: 8vh;
+            right: 4vw;
+            width: 25vw;
+            height: 32vh;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        /* ============================================================
+           404 CENTER CONTENT
+        ============================================================ */
+        .error-center {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: calc(var(--nav-h) + 20px) 20px 40px;
+            width: 100%;
+            max-width: 960px;
+        }
+
+        /* 404 digits + circle row */
+        .digits-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .digit-4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(96px, 15vw, 195px);
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1;
+            letter-spacing: -2px;
+            user-select: none;
+            text-shadow: 2px 4px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Navy circle "0" */
+        .circle-zero {
+            position: relative;
+            width: clamp(72px, 11.5vw, 148px);
+            height: clamp(72px, 11.5vw, 148px);
+            background-color: #1a2c42;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* Small yellow circle overlapping top-right of navy circle */
+        .circle-zero .yellow-dot {
+            position: absolute;
+            top: 2%;
+            right: 2%;
+            width: 37%;
+            height: 37%;
+            background-color: #f2b757;
+            border-radius: 50%;
+        }
+
+        /* Error heading */
+        .error-heading {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(22px, 3.6vw, 44px);
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.25;
+            margin-bottom: 14px;
+        }
+
+        /* Error subtitle */
+        .error-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(12px, 1vw, 14px);
+            font-weight: 500;
+            color: rgba(255,255,255,0.82);
+            line-height: 1.7;
+            margin-bottom: 40px;
+            max-width: 560px;
+        }
+
+        /* Back to home pill button */
+        .btn-back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #5b7ee0;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 15px 54px;
+            border-radius: 40px;
+            text-decoration: none;
+            box-shadow: 0 6px 22px rgba(91,126,224,0.45);
+            transition: background 0.22s, transform 0.18s;
+        }
+
+        .btn-back-home:hover {
+            background: #3f62cc;
+            transform: translateY(-2px);
+        }
+
+        /* ============================================================
+           RESPONSIVE
+        ============================================================ */
+        @media (max-width: 768px) {
+            body { overflow: auto; }
+            .page-404 { height: auto; min-height: 100vh; }
+            .blob-svg-tl { width: 62vw; height: 45vh; }
+            .blob-svg-br { width: 62vw; height: 42vh; }
+            .topo-green-svg { width: 28vw; height: 38vh; left: 4vw; top: 12vh; }
+            .topo-orange-svg { width: 34vw; height: 28vh; top: 6vh; right: 1vw; }
+            .error-center { padding-top: calc(var(--nav-h) + 30px); }
+        }
+
+        @media (max-width: 480px) {
+            .digits-row { gap: 6px; }
+            .btn-back-home { padding: 13px 36px; font-size: 13px; }
+        }
+    </style>
+    <link rel="stylesheet" href="preloader.css" />
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="loader-wrapper" id="preloader">
+        <div class="loader">
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__ball"></div>
+        </div>
+    </div>
+    <!-- ===================== HOME PAGE NAVBAR (EXACT COPY) ===================== -->
+    <header class="navbar" id="navbar">
+        <div class="nav-container">
+            <!-- Logo -->
+            <a href="./index.html" class="nav-logo" id="nav-logo-link" aria-label="Stackly Home">
+                <img src="assets/images/stackly logo.webp" alt="Stackly Logo" class="logo-img" id="logo-img" />
+            </a>
+
+            <!-- Nav Links -->
+            <nav class="nav-links" id="nav-links" aria-label="Main navigation">
+                <a href="./index.html" class="nav-link" id="nav-home">Home</a>
+                <a href="./product.html" class="nav-link" id="nav-product">Product</a>
+                <a href="./pricing.html" class="nav-link" id="nav-pricing">Pricing</a>
+                <a href="./contact.html" class="nav-link" id="nav-contact">Contact</a>
+                <a href="./about.html" class="nav-link" id="nav-about">About</a>
+            </nav>
+
+            <!-- CTA Buttons -->
+            <div class="nav-actions" id="nav-actions">
+                <a href="./login.html?mode=login" class="btn-login" id="btn-login">Login</a>
+                <a href="./login.html?mode=signup" class="btn-member" id="btn-member-nav">
+                    Become a member <span class="btn-arrow">→</span>
+                </a>
+            </div>
+
+            <!-- Mobile Hamburger -->
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                <span class="ham-line"></span>
+                <span class="ham-line"></span>
+                <span class="ham-line"></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="./index.html" class="mobile-link" id="mob-home">Home</a>
+            <a href="./product.html" class="mobile-link" id="mob-product">Product</a>
+            <a href="./pricing.html" class="mobile-link" id="mob-pricing">Pricing</a>
+            <a href="./contact.html" class="mobile-link" id="mob-contact">Contact</a>
+            <a href="./about.html" class="mobile-link" id="mob-about">About</a>
+            <a href="./login.html?mode=login" class="mobile-link" id="mob-login">Login</a>
+            <a href="./login.html?mode=signup" class="btn-member mobile-btn-member" id="mob-member">
+                Become a member →
+            </a>
+        </div>
+    </header>
+
+    <!-- ===================== 404 FULL-SCREEN SECTION ===================== -->
+    <div class="page-404">
+
+        <!-- YELLOW ORGANIC BLOB — TOP LEFT -->
+        <svg class="blob-svg-tl" viewBox="0 0 430 560" fill="none" preserveAspectRatio="xMinYMin slice" xmlns="http://www.w3.org/2000/svg">
+            <path d="
+                M 0,0
+                L 430,0
+                C 400,60  360,120  330,170
+                C 300,220  280,260  250,305
+                C 220,350  190,390  160,430
+                C 130,470  80,500  0,520
+                Z
+            " fill="#f2b757"/>
+        </svg>
+
+        <!-- YELLOW ORGANIC BLOB — BOTTOM RIGHT -->
+        <svg class="blob-svg-br" viewBox="0 0 500 430" fill="none" preserveAspectRatio="xMaxYMax slice" xmlns="http://www.w3.org/2000/svg">
+            <path d="
+                M 500,430
+                L 0,430
+                C 40,380   90,330  150,285
+                C 210,240  270,205  310,165
+                C 350,125  390,75   450,30
+                C 468,16   484,8    500,0
+                Z
+            " fill="#f2b757"/>
+        </svg>
+
+        <!-- GREEN TOPOGRAPHIC SPIRAL CONTOURS — LEFT SIDE (behind left "4") -->
+        <svg class="topo-green-svg" viewBox="0 0 180 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outermost irregular elongated oval -->
+            <path d="M 25,260 C 5,215  0,155  15,105  C 30,55  70,15  115,12  C 155,10  175,50  168,100  C 160,150  130,195  110,250  C 90,310  60,335  25,260 Z"
+                  stroke="#509460" stroke-width="2.2" fill="none"/>
+            <!-- 2nd ring -->
+            <path d="M 40,245 C 23,205  18,150  33,105  C 48,62  82,30  118,28  C 150,26  165,62  158,108  C 150,152  123,193  105,242  C 88,290  62,318  40,245 Z"
+                  stroke="#509460" stroke-width="2" fill="none"/>
+            <!-- 3rd ring -->
+            <path d="M 55,230 C 42,195  38,148  52,108  C 66,68  94,44  122,43  C 146,42  158,74  152,115  C 145,154  120,191  102,233  C 87,270  65,300  55,230 Z"
+                  stroke="#509460" stroke-width="1.8" fill="none"/>
+            <!-- 4th ring -->
+            <path d="M 70,215 C 60,185  57,146  70,110  C 83,75  104,57  125,57  C 144,57  152,84  147,120  C 141,156  118,188  100,224  C 86,252  72,278  70,215 Z"
+                  stroke="#509460" stroke-width="1.6" fill="none"/>
+            <!-- 5th innermost ring -->
+            <path d="M 84,200 C 77,176  76,145  88,114  C 100,83  116,70  130,71  C 143,72  147,94  142,126  C 137,157  116,184  100,214  C 89,235  82,258  84,200 Z"
+                  stroke="#509460" stroke-width="1.4" fill="none"/>
+        </svg>
+
+        <!-- ORANGE CONCENTRIC OVAL CONTOURS — UPPER RIGHT -->
+        <svg class="topo-orange-svg" viewBox="0 0 320 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outermost tilted ellipse -->
+            <ellipse cx="162" cy="115" rx="155" ry="100" stroke="#c95028" stroke-width="2.5" transform="rotate(-12 162 115)"/>
+            <!-- 2nd ring -->
+            <ellipse cx="162" cy="115" rx="120" ry="75" stroke="#c95028" stroke-width="2.2" transform="rotate(-12 162 115)"/>
+            <!-- 3rd ring -->
+            <ellipse cx="162" cy="115" rx="85" ry="52" stroke="#c95028" stroke-width="2" transform="rotate(-12 162 115)"/>
+            <!-- 4th innermost ring -->
+            <ellipse cx="162" cy="115" rx="50" ry="30" stroke="#c95028" stroke-width="1.8" transform="rotate(-12 162 115)"/>
+        </svg>
+
+        <!-- ===== CENTER ERROR CONTENT ===== -->
+        <div class="error-center">
+            <div class="digits-row">
+                <span class="digit-4">4</span>
+
+                <div class="circle-zero">
+                    <div class="yellow-dot"></div>
+                </div>
+
+                <span class="digit-4">4</span>
+            </div>
+
+            <h1 class="error-heading">Oops, This Page Could Not Be Found</h1>
+            <p class="error-subtitle">The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+
+            <a href="./index.html" class="btn-back-home">← &nbsp;Back to home</a>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

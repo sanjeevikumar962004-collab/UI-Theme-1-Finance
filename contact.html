@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us – Stackly Financial</title>
+    <meta name="description"
+        content="Get in touch with the Stackly financial team. Send us a message, find our office location, or reach out for immediate assistance." />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@600&family=Poppins:wght@500;600&family=Montserrat:wght@400;500;600;700;800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        /* ============================================================
+           CONTACT HERO SECTION
+           ============================================================ */
+        .contact-hero {
+            min-height: 65vh;
+            background: #385868; /* Continuous solid slate-blue background to match theme */
+            padding-top: calc(var(--nav-h) + 40px);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+            width: 100%;
+        }
+
+        .contact-hero-content {
+            flex: 0 0 50%;
+            color: #ffffff;
+        }
+
+        .contact-hero-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(28px, 3.5vw, 46px);
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 20px;
+        }
+
+        .contact-hero-subtitle {
+            font-size: 15px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.72);
+            line-height: 1.8;
+            margin-bottom: 30px;
+            text-transform: none;
+        }
+
+        .btn-contact-hero {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #23A6F0;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 15px 32px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background var(--tr-fast), transform var(--tr-fast);
+            box-shadow: 0 4px 15px rgba(35, 166, 240, 0.3);
+        }
+
+        .btn-contact-hero:hover {
+            background: #108edc;
+            transform: translateY(-2px);
+        }
+
+        .contact-hero-visual {
+            flex: 0 0 45%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .contact-hero-visual img {
+            width: 100%;
+            max-width: 480px;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.15));
+        }
+
+        /* ============================================================
+           CONTACT BODY WRAPPER
+           ============================================================ */
+        .contact-body-wrapper {
+            background-color: #385868;
+            padding: 40px 40px 0;
+        }
+
+        .contact-body-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+        }
+
+        /* ============================================================
+           FORM & INFORMATION CARDS ROW
+           ============================================================ */
+        .contact-cards-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            width: 100%;
+        }
+
+        .contact-card-box {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 45px 40px;
+            background: rgba(255, 255, 255, 0.02);
+            color: #ffffff;
+        }
+
+        .contact-form-box {
+            flex: 0 0 60%;
+        }
+
+        .contact-info-box {
+            flex: 0 0 35%;
+        }
+
+        .contact-box-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        /* Forms Layout & Inputs */
+        .contact-form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px 24px;
+            width: 100%;
+        }
+
+        .contact-form-full {
+            grid-column: span 2;
+        }
+
+        .form-group-input {
+            position: relative;
+            width: 100%;
+        }
+
+        .form-group-input input,
+        .form-group-input textarea {
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 30px;
+            height: 52px;
+            padding: 0 20px 0 52px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a2530;
+            outline: none;
+            transition: border-color var(--tr-fast);
+        }
+
+        .form-group-input textarea {
+            height: 180px;
+            border-radius: 20px;
+            padding: 20px 20px 20px 52px;
+            resize: none;
+        }
+
+        .form-group-input input:focus,
+        .form-group-input textarea:focus {
+            border-color: #23A6F0;
+        }
+
+        .form-group-input .input-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7f8c8d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .form-group-input textarea + .input-icon {
+            top: 28px;
+            transform: none;
+        }
+
+        .btn-submit-message {
+            margin-top: 10px;
+            background: #23A6F0;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            padding: 15px 36px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            width: auto;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(35, 166, 240, 0.3);
+            transition: background var(--tr-fast), transform var(--tr-fast);
+        }
+
+        .btn-submit-message:hover {
+            background: #108edc;
+            transform: translateY(-2px);
+        }
+
+        /* Info Details Layout */
+        .info-details-list {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .info-detail-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .info-icon-wrapper {
+            margin-top: 4px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .info-text-box {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .info-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .info-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.5;
+        }
+
+        /* ============================================================
+           MAP CONTAINER SECTION
+           ============================================================ */
+        .map-card-container {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            width: 100%;
+            margin-bottom: 90px;
+            overflow: hidden;
+        }
+
+        .map-iframe-wrapper {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            height: 450px;
+        }
+
+        .map-iframe-wrapper iframe {
+            width: 100% !important;
+            height: 100% !important;
+            border: 0;
+            display: block;
+        }
+
+        /* ============================================================
+           BOTTOM HELP BANNER
+           ============================================================ */
+        .assistance-banner-section {
+            background-color: #ffffff;
+            width: 100%;
+            padding: 35px 40px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
+        }
+
+        .assistance-banner-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .assistance-left {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .assistance-icon-img {
+            width: 52px;
+            height: 52px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .assistance-text-box {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .assistance-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 21px;
+            font-weight: 800;
+            color: #1a2530;
+        }
+
+        .assistance-desc {
+            font-size: 13px;
+            font-weight: 600;
+            color: #7f8c8d;
+        }
+
+        .assistance-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-assistance {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            padding: 13px 26px;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background var(--tr-fast);
+        }
+
+        .btn-assistance-blue {
+            background: #23A6F0;
+            color: #ffffff;
+        }
+
+        .btn-assistance-blue:hover {
+            background: #108edc;
+        }
+
+        .btn-assistance-gray {
+            background: #6f7c85;
+            color: #ffffff;
+        }
+
+        .btn-assistance-gray:hover {
+            background: #5d6870;
+        }
+
+        /* ============================================================
+           RESPONSIVE STYLE OVERRIDES
+           ============================================================ */
+        @media (max-width: 991px) {
+            .contact-hero-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 40px;
+                padding: 40px 20px;
+            }
+
+            .contact-hero-content,
+            .contact-hero-visual {
+                flex: 0 0 100%;
+                width: 100%;
+            }
+
+            .contact-hero-visual img {
+                max-width: 100%;
+            }
+
+            .contact-body-wrapper {
+                padding: 40px 20px 0;
+            }
+
+            .contact-cards-row {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .contact-card-box {
+                flex: 0 0 100%;
+                padding: 30px 24px;
+            }
+
+            .map-card-container {
+                padding: 15px;
+                margin-bottom: 60px;
+            }
+
+            .map-iframe-wrapper {
+                height: 320px;
+            }
+
+            .assistance-banner-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 25px;
+            }
+
+            .assistance-left {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .assistance-actions {
+                flex-direction: column;
+                width: 100%;
+                gap: 12px;
+            }
+
+            .btn-assistance {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contact-form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form-full {
+                grid-column: span 1;
+            }
+
+            .assistance-title {
+                font-size: 18px;
+            }
+
+            .map-iframe-wrapper {
+                height: 250px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="preloader.css" />
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="loader-wrapper" id="preloader">
+        <div class="loader">
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__ball"></div>
+        </div>
+    </div>
+    <!-- ===================== NAVBAR ===================== -->
+    <header class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="./index.html" class="nav-logo" id="nav-logo-link" aria-label="Stackly Home">
+                <img src="assets/images/stackly logo.webp" alt="Stackly Logo" class="logo-img" id="logo-img" />
+            </a>
+
+            <nav class="nav-links" id="nav-links" aria-label="Main navigation">
+                <a href="./index.html" class="nav-link" id="nav-home">Home</a>
+                <a href="./product.html" class="nav-link" id="nav-product">Product</a>
+                <a href="./pricing.html" class="nav-link" id="nav-pricing">Pricing</a>
+                <a href="./contact.html" class="nav-link active" id="nav-contact">Contact</a>
+                <a href="./about.html" class="nav-link" id="nav-about">About</a>
+            </nav>
+
+            <div class="nav-actions" id="nav-actions">
+                <a href="./login.html?mode=login" class="btn-login" id="btn-login">Login</a>
+                <a href="./login.html?mode=signup" class="btn-member" id="btn-member-nav">
+                    Become a member <span class="btn-arrow">→</span>
+                </a>
+            </div>
+
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                <span class="ham-line"></span>
+                <span class="ham-line"></span>
+                <span class="ham-line"></span>
+            </button>
+        </div>
+
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="./index.html" class="mobile-link" id="mob-home">Home</a>
+            <a href="./product.html" class="mobile-link" id="mob-product">Product</a>
+            <a href="./pricing.html" class="mobile-link" id="mob-pricing">Pricing</a>
+            <a href="./contact.html" class="mobile-link active" id="mob-contact">Contact</a>
+            <a href="./about.html" class="mobile-link" id="mob-about">About</a>
+            <a href="./login.html?mode=login" class="mobile-link" id="mob-login">Login</a>
+            <a href="./login.html?mode=signup" class="btn-member mobile-btn-member" id="mob-member">
+                Become a member →
+            </a>
+        </div>
+    </header>
+
+    <!-- ===================== CONTACT HERO SECTION ===================== -->
+    <section class="contact-hero">
+        <div class="contact-hero-container">
+            <!-- Left content -->
+            <div class="contact-hero-content">
+                <h1 class="contact-hero-title">
+                    We’re Here to Help<br />You Grow Financially
+                </h1>
+                <p class="contact-hero-subtitle">
+                    have questions about investments,loans,or financial planning? our experts are ready to assist you
+                </p>
+                <a href="#message-section" class="btn-contact-hero">Contact Us →</a>
+            </div>
+
+            <!-- Right Visual Image (contact hero.webp) -->
+            <div class="contact-hero-visual">
+                <img src="assets/images/contact hero.webp" alt="Growing Financially Assistant" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== CONTACT BODY WRAPPER ===================== -->
+    <div class="contact-body-wrapper" id="message-section">
+        <div class="contact-body-container">
+
+            <!-- Card Grid Row (Send message / Details list) -->
+            <div class="contact-cards-row">
+                <!-- Send Us a Message Card -->
+                <div class="contact-card-box contact-form-box">
+                    <h2 class="contact-box-title">Send Us a Message</h2>
+                    <form class="contact-form-grid">
+                        <div class="form-group-input">
+                            <input type="text" placeholder="Full Name" required />
+                            <span class="input-icon">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                </svg>
+                            </span>
+                        </div>
+
+                        <div class="form-group-input">
+                            <input type="email" placeholder="Email Address" required />
+                            <span class="input-icon">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                                </svg>
+                            </span>
+                        </div>
+
+                        <div class="form-group-input">
+                            <input type="tel" placeholder="Phone Number" required />
+                            <span class="input-icon">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                    <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-2.2 2.2a15.045 15.045 0 01-6.59-6.59l2.2-2.21a.96.96 0 00.25-1.01c-.36-1.11-.56-2.3-.56-3.53C8.38 4 7.62 3.25 6.66 3.25H3.01C2.05 3.25 1 4.06 1 5.02c0 9.38 7.6 16.98 16.99 16.98 1.01 0 1.77-.96 1.77-1.92v-3.05c0-.96-.76-1.65-1.75-1.65z"/>
+                                </svg>
+                            </span>
+                        </div>
+
+                        <div class="form-group-input">
+                            <input type="text" placeholder="Subject" required />
+                            <span class="input-icon">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                    <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                                </svg>
+                            </span>
+                        </div>
+
+                        <div class="form-group-input contact-form-full">
+                            <textarea placeholder="Message" required></textarea>
+                            <span class="input-icon">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 000-1.41l-2.34-2.34a.996.996 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                                </svg>
+                            </span>
+                        </div>
+
+                        <div class="contact-form-full">
+                            <button type="submit" class="btn-submit-message">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Contact Information Card -->
+                <div class="contact-card-box contact-info-box">
+                    <h2 class="contact-box-title">Contact Information</h2>
+                    <div class="info-details-list">
+                        <!-- Call Us -->
+                        <div class="info-detail-item">
+                            <div class="info-icon-wrapper">
+                                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                    <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-2.2 2.2a15.045 15.045 0 01-6.59-6.59l2.2-2.21a.96.96 0 00.25-1.01c-.36-1.11-.56-2.3-.56-3.53C8.38 4 7.62 3.25 6.66 3.25H3.01C2.05 3.25 1 4.06 1 5.02c0 9.38 7.6 16.98 16.99 16.98 1.01 0 1.77-.96 1.77-1.92v-3.05c0-.96-.76-1.65-1.75-1.65z"/>
+                                </svg>
+                            </div>
+                            <div class="info-text-box">
+                                <span class="info-label">Call Us</span>
+                                <span class="info-value">+1(800)123-4567</span>
+                            </div>
+                        </div>
+
+                        <!-- Email Us -->
+                        <div class="info-detail-item">
+                            <div class="info-icon-wrapper">
+                                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                                </svg>
+                            </div>
+                            <div class="info-text-box">
+                                <span class="info-label">Email Us</span>
+                                <span class="info-value">Stackly@gmail.com</span>
+                            </div>
+                        </div>
+
+                        <!-- Our Office -->
+                        <div class="info-detail-item">
+                            <div class="info-icon-wrapper">
+                                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                                </svg>
+                            </div>
+                            <div class="info-text-box">
+                                <span class="info-label">Our Office</span>
+                                <span class="info-value">245 Wall Street,<br />New York, NY 1005, USA</span>
+                            </div>
+                        </div>
+
+                        <!-- Working Hours -->
+                        <div class="info-detail-item">
+                            <div class="info-icon-wrapper">
+                                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                    <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                                </svg>
+                            </div>
+                            <div class="info-text-box">
+                                <span class="info-label">Working Hours</span>
+                                <span class="info-value">Mon-Fri<br />9:30 AM - 6:00 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Styled Map Section (Border card with iframe embedded inside) -->
+            <div class="map-card-container">
+                <div class="map-iframe-wrapper">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3907.1615358008926!2d78.17140487513792!3d11.682961841818727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3babefef7fd970bb%3A0xe11aef1a71994f9!2sStackly!5e0!3m2!1sen!2sin!4v1784099551256!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ===================== BOTTOM BANNER SECTION ===================== -->
+    <section class="assistance-banner-section">
+        <div class="assistance-banner-container">
+            <div class="assistance-left">
+                <img src="assets/images/contact phone icon.webp" alt="Caller Phone Handset Icon" class="assistance-icon-img" />
+                <div class="assistance-text-box">
+                    <h3 class="assistance-title">Need Immediate Assistance ?</h3>
+                    <p class="assistance-desc">connect with our experts for personalized support.</p>
+                </div>
+            </div>
+            <div class="assistance-actions">
+                <a href="#" class="btn-assistance btn-assistance-blue">Live Chat →</a>
+                <a href="#" class="btn-assistance btn-assistance-gray">Schedule a Call →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== FOOTER SECTION ===================== -->
+    <footer class="main-footer" id="main-footer">
+        <div class="footer-container">
+            <div class="footer-columns">
+                <div class="footer-column col-get-touch">
+                    <h3>Get In Touch</h3>
+                    <p>the quick fox jumps over the Stackly</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">
+                            <img src="assets/images/facebook.webp" alt="Facebook" />
+                        </a>
+                        <a href="#" class="social-icon">
+                            <img src="assets/images/instagram.webp" alt="Instagram" />
+                        </a>
+                        <a href="#" class="social-icon">
+                            <img src="assets/images/twitter.webp" alt="Twitter" />
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Company info</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Carrier</a></li>
+                        <li><a href="#">We are hiring</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Features</h3>
+                    <ul>
+                        <li><a href="#">Business Marketing</a></li>
+                        <li><a href="#">User Analytic</a></li>
+                        <li><a href="#">Live Chat</a></li>
+                        <li><a href="#">Unlimited Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">IOS &amp; Android</a></li>
+                        <li><a href="#">Watch a Demo</a></li>
+                        <li><a href="#">Customers</a></li>
+                        <li><a href="#">API</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>All Right Reserved in Stackly</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="validation.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login &amp; Sign Up – Stackly Financial</title>
+    <meta name="description" content="Access your Stackly financial account as a user or administrator. Join our membership platform." />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@600&family=Poppins:wght@500;600&family=Montserrat:wght@400;500;600;700;800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        /* ============================================================
+           LOGIN PAGE GRID LAYOUT & BACKGROUND BOXES (EXACT MATCH)
+           ============================================================ */
+        body.login-page-body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            /* White background as requested */
+            background: #ffffff;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+            position: relative;
+        }
+
+        /* Single backdrop SVG containing both left and right shapes to ensure parallel lines */
+        .page-backdrop-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+            display: block;
+        }
+
+        .login-main-container {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Left Branding Panel */
+        .login-left-panel {
+            flex: 0 0 42%;
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            background-color: transparent;
+        }
+
+        /* Vertically stacked logo container: icon at top, text directly below */
+        /* Positioned absolutely at the main container level so it stays at the top-left on both desktop and mobile/tablet */
+        .left-logo-area {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            z-index: 10;
+        }
+
+        .logo-stack-vertical {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+            color: #ffffff;
+        }
+
+        .left-logo-img {
+            height: 48px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .finance-company-sub {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3); /* Ensure readability on any backdrop gradient shift */
+            margin-left: 46px; /* Align straight under the S of STACKLY */
+        }
+
+        .left-woman-img {
+            position: absolute;
+            bottom: -75px; /* Shunted lower so crossed arms are cut off exactly at bottom screen line */
+            left: 0; /* Aligned exactly to the left corner */
+            width: 90%;
+            max-width: 410px;
+            height: 85vh; /* Extends below the left teal box onto the light blue page background */
+            object-fit: contain;
+            z-index: 5;
+        }
+
+        /* Right Form Panel */
+        .login-right-panel {
+            flex: 0 0 58%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* ============================================================
+           CARD CONTROLS & VIEWS
+           ============================================================ */
+        .login-card {
+            background: #ffffff;
+            border-radius: 30px; /* Rounded corners to match design mockup */
+            padding: 45px 50px;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 5;
+            box-sizing: border-box;
+        }
+
+        .form-view {
+            width: 100%;
+            display: none;
+            animation: fadeInView 0.3s ease forwards;
+        }
+
+        .form-view.active {
+            display: block;
+        }
+
+        @keyframes fadeInView {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-heading {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 25px;
+            font-weight: 800;
+            color: #1a2530;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .card-subheading {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: #1a2530;
+            margin-bottom: 15px;
+            text-align: left;
+            width: 100%;
+        }
+
+        /* ============================================================
+           USER / ADMIN ROLE TOGGLE SWITCH
+           ============================================================ */
+        .login-role-toggle {
+            display: flex;
+            background: #f0f3f5;
+            border-radius: 30px;
+            padding: 4px;
+            margin: 0 auto 25px;
+            width: 100%;
+            max-width: 240px;
+        }
+
+        .btn-role-tab {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 9px 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: #7f8c8d;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: background var(--tr-fast), color var(--tr-fast);
+        }
+
+        .btn-role-tab.active {
+            background: #ffffff;
+            color: #1a2530;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        /* ============================================================
+           FORM INPUTS
+           ============================================================ */
+        .login-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .auth-input-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .auth-input-wrapper input {
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            height: 52px;
+            padding: 0 20px 0 52px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #2c3e50;
+            outline: none;
+            transition: border-color var(--tr-fast);
+            box-sizing: border-box;
+        }
+
+        .auth-input-wrapper input::placeholder {
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .auth-input-wrapper input:focus {
+            border-color: #23A6F0;
+        }
+
+        .auth-input-wrapper .input-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7f8c8d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        /* Remember Me & Forgot Password Row */
+        .options-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 25px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .remember-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #23A6F0; /* Remember me matches mockup blue */
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .remember-checkbox input {
+            display: none;
+        }
+
+        .custom-check {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #23A6F0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background var(--tr-fast);
+        }
+
+        .remember-checkbox input:checked + .custom-check {
+            background: #23A6F0;
+        }
+
+        .remember-checkbox input:checked + .custom-check::after {
+            content: "✓";
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 900;
+        }
+
+        .forgot-link {
+            color: #252B42;
+            text-decoration: none;
+            transition: color var(--tr-fast);
+        }
+
+        .forgot-link:hover {
+            color: #23A6F0;
+        }
+
+        /* Continue Button */
+        .btn-auth-continue {
+            width: 100%;
+            background: #000000; /* Black button from mockup */
+            color: #ffffff;
+            height: 52px;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            margin-bottom: 25px;
+            transition: opacity var(--tr-fast);
+        }
+
+        .btn-auth-continue:hover {
+            opacity: 0.9;
+        }
+
+        /* Social Sign In */
+        .social-signin-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        .social-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #7f8c8d;
+        }
+
+        .social-icons-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-btn {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform var(--tr-fast);
+        }
+
+        .social-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Card Toggle Bottom Link */
+        .card-toggle-text {
+            font-size: 13px;
+            font-weight: 700;
+            color: #252B42;
+        }
+
+        .card-toggle-text a {
+            color: #23A6F0;
+            text-decoration: none;
+            font-weight: 700;
+            margin-left: 4px;
+        }
+
+        .card-toggle-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Success Alert Banner */
+        .alert-banner {
+            width: 100%;
+            background: #2ebd59;
+            color: #ffffff;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+            display: none;
+            animation: slideDown 0.3s ease forwards;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============================================================
+           RESPONSIVE STYLE OVERRIDES
+           ============================================================ */
+        @media (max-width: 1025px) {
+            body.login-page-body {
+                overflow-y: auto;
+            }
+            .page-backdrop-svg {
+                display: none; /* Hide custom split SVG layout on smaller devices */
+            }
+            body.login-page-body {
+                background: linear-gradient(135deg, #2d5266 0%, #142530 100%);
+            }
+            .login-main-container {
+                flex-direction: column;
+                height: auto;
+                min-height: 100vh;
+                justify-content: flex-start;
+                align-items: center;
+                padding: 110px 15px 40px; /* Leave space at top for logo */
+                box-sizing: border-box;
+            }
+            .login-left-panel {
+                display: none; /* Hide left branding panel containing woman photo on smaller screens */
+            }
+            .login-right-panel {
+                flex: 0 0 100%;
+                width: 100%;
+                max-width: 480px;
+                padding: 0;
+                height: auto;
+            }
+            .login-card {
+                padding: 35px 25px;
+                border-radius: 20px;
+                width: 100%;
+            }
+            /* Keep brand logo positioned at top-left, adjust size slightly for mobile/tablet */
+            .left-logo-area {
+                top: 25px;
+                left: 25px;
+            }
+            .left-logo-img {
+                height: 40px;
+            }
+            .finance-company-sub {
+                font-size: 13px;
+                margin-left: 40px; /* Align straight under the S of STACKLY on smaller screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 30px 15px;
+            }
+            .options-row {
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+            .left-logo-area {
+                top: 20px;
+                left: 20px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="preloader.css" />
+</head>
+
+<body class="login-page-body">
+    <!-- Preloader -->
+    <div class="loader-wrapper" id="preloader">
+        <div class="loader">
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__ball"></div>
+        </div>
+    </div>
+
+    <!-- ===================== PAGE BACKGROUND SVG SHAPES ===================== -->
+    <svg class="page-backdrop-svg" viewBox="0 0 1000 1000" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <linearGradient id="leftBoxGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#142530" />
+                <stop offset="100%" stop-color="#2d5266" />
+            </linearGradient>
+            <linearGradient id="rightBoxGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#2d5266" />
+                <stop offset="100%" stop-color="#142530" />
+            </linearGradient>
+        </defs>
+        <!-- Left Box: starts at top-left edge, straight slanted right edge, and smooth rounded bottom-right curve (radius 60) -->
+        <path d="M 0 0 H 345 A 15 15 0 0 1 360 15 L 320 485 A 30 30 0 0 1 290 510 L 0 460 Z" fill="url(#leftBoxGrad)" />
+        <!-- Right Box: covers the entire right and bottom edges, leaving a parallel diagonal left margin with rounded corners -->
+        <path d="M 455 0 H 1000 V 1000 H 380 A 30 30 0 0 1 350 970 L 430 30 A 25 25 0 0 1 455 0 Z" fill="url(#rightBoxGrad)" />
+    </svg>
+
+    <div class="login-main-container">
+
+        <!-- Brand Logo (Visible globally, floats at top-left corner on both desktop & mobile) -->
+        <a href="index.html" class="left-logo-area" style="text-decoration: none; cursor: pointer;">
+            <div class="logo-stack-vertical">
+                <img src="assets/images/stackly logo.webp" alt="Stackly Logo" class="left-logo-img" />
+                <span class="finance-company-sub">Finance Company</span>
+            </div>
+        </a>
+
+        <!-- ===================== LEFT BRAND PANEL ===================== -->
+        <div class="login-left-panel">
+            <!-- Smiling Assistant Woman (auth pages women) -->
+            <!-- Positioned absolutely at bottom left, extending below the half-size teal box background -->
+            <img src="assets/images/auth pages women.webp" alt="Stackly Representative" class="left-woman-img"
+                onerror="this.onerror=null; this.src='assets/images/home hero.webp';" />
+        </div>
+
+        <!-- ===================== RIGHT FORM PANEL ===================== -->
+        <div class="login-right-panel">
+            <!-- Center White Login/Signup Card -->
+            <div class="login-card">
+
+                <!-- Success Alert Notification -->
+                <div class="alert-banner" id="success-banner">
+                    Account created successfully! Toggling back to Login.
+                </div>
+
+                <!-- ===================== LOGIN VIEW ===================== -->
+                <div class="form-view active" id="login-view">
+                    <h2 class="card-heading">Login your account!</h2>
+
+                    <!-- User/Admin Login Option Pill Toggle -->
+                    <div class="login-role-toggle">
+                        <button type="button" class="btn-role-tab active" id="role-user"
+                            onclick="setLoginRole('user')">User</button>
+                        <button type="button" class="btn-role-tab" id="role-admin"
+                            onclick="setLoginRole('admin')">Admin</button>
+                    </div>
+
+                    <form onsubmit="handleLogin(event)">
+                        <div class="login-form-group">
+                            <!-- Email Input -->
+                            <div class="auth-input-wrapper">
+                                <input type="email" id="login-email" placeholder="Email" required />
+                                <span class="input-icon">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                                    </svg>
+                                </span>
+                                <span class="validation-error"></span>
+                            </div>
+
+                            <!-- Password Input -->
+                            <div class="auth-input-wrapper">
+                                <input type="password" id="login-password" placeholder="Password" required />
+                                <span class="input-icon">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                                    </svg>
+                                </span>
+                                <span class="validation-error"></span>
+                            </div>
+                        </div>
+
+                        <div class="options-row">
+                            <label class="remember-checkbox">
+                                <input type="checkbox" checked />
+                                <span class="custom-check"></span>
+                                <span>Remember me</span>
+                            </label>
+                            <a href="#" class="forgot-link">Forgot password?</a>
+                        </div>
+
+                        <button type="submit" class="btn-auth-continue">Continue</button>
+                    </form>
+
+                    <!-- Social logins -->
+                    <div class="social-signin-area">
+                        <span class="social-title">Sign in With</span>
+                        <div class="social-icons-row">
+                            <button type="button" class="social-btn" aria-label="Sign in with Facebook" onclick="window.location.href='404.html'">
+                                <svg viewBox="0 0 24 24" width="36" height="36" fill="#1877f2">
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                </svg>
+                            </button>
+                            <button type="button" class="social-btn" aria-label="Sign in with Google" onclick="window.location.href='404.html'">
+                                <svg viewBox="0 0 24 24" width="36" height="36">
+                                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22c-.09-.63-.19-1.3-.19-1.63z" fill="#FBBC05"/>
+                                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+                                </svg>
+                            </button>
+                            <button type="button" class="social-btn" aria-label="Sign in with Apple" onclick="window.location.href='404.html'">
+                                <svg viewBox="0 0 24 24" width="36" height="36" fill="#000000">
+                                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-1 .04-2.21.67-2.93 1.49-.62.69-1.16 1.84-1.01 2.96 1.12.09 2.27-.56 2.95-1.39z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card-toggle-text">
+                        Dont have an account? <a href="#" onclick="toggleAuthMode('signup'); return false;">Sign up</a>
+                    </div>
+                </div>
+
+                <!-- ===================== SIGN UP VIEW ===================== -->
+                <div class="form-view" id="signup-view">
+                    <h2 class="card-heading">Create your account!</h2>
+
+                    <!-- User/Admin Signup Option Pill Toggle -->
+                    <div class="login-role-toggle">
+                        <button type="button" class="btn-role-tab active" id="signup-role-user"
+                            onclick="setSignupRole('user')">User</button>
+                        <button type="button" class="btn-role-tab" id="signup-role-admin"
+                            onclick="setSignupRole('admin')">Admin</button>
+                    </div>
+
+                    <h3 class="card-subheading">Enter your Full Details</h3>
+
+                    <form onsubmit="handleSignup(event)">
+                        <div class="login-form-group">
+                            <!-- Username Input -->
+                            <div class="auth-input-wrapper">
+                                <input type="text" id="signup-username" placeholder="Username" required />
+                                <span class="input-icon">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                    </svg>
+                                </span>
+                                <span class="validation-error"></span>
+                            </div>
+
+                            <!-- Email Input -->
+                            <div class="auth-input-wrapper">
+                                <input type="email" id="signup-email" placeholder="Email" required />
+                                <span class="input-icon">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                                    </svg>
+                                </span>
+                                <span class="validation-error"></span>
+                            </div>
+
+                            <!-- Phone Input -->
+                            <div class="auth-input-wrapper">
+                                <input type="tel" id="signup-phone" placeholder="Phone" required />
+                                <span class="input-icon">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                        <path d="M6.62 10.79a15.149 15.149 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                                    </svg>
+                                </span>
+                                <span class="validation-error"></span>
+                            </div>
+
+                            <!-- Password Input -->
+                            <div class="auth-input-wrapper">
+                                <input type="password" id="signup-password" placeholder="Password" required />
+                                <span class="input-icon">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                                    </svg>
+                                </span>
+                                <span class="validation-error"></span>
+                            </div>
+
+                            <!-- Confirm Password Input -->
+                            <div class="auth-input-wrapper">
+                                <input type="password" id="signup-confirm-password" placeholder="Confirm Password" required />
+                                <span class="input-icon">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                                    </svg>
+                                </span>
+                                <span class="validation-error"></span>
+                            </div>
+                        </div>
+
+                        <div class="options-row">
+                            <label class="remember-checkbox">
+                                <input type="checkbox" checked />
+                                <span class="custom-check"></span>
+                                <span>Remember me</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn-auth-continue">Continue</button>
+                    </form>
+
+                    <!-- Social logins -->
+                    <div class="social-signin-area">
+                        <span class="social-title">Sign in With</span>
+                        <div class="social-icons-row">
+                            <button type="button" class="social-btn" aria-label="Sign in with Facebook" onclick="window.location.href='404.html'">
+                                <svg viewBox="0 0 24 24" width="36" height="36" fill="#1877f2">
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                </svg>
+                            </button>
+                            <button type="button" class="social-btn" aria-label="Sign in with Google" onclick="window.location.href='404.html'">
+                                <svg viewBox="0 0 24 24" width="36" height="36">
+                                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22c-.09-.63-.19-1.3-.19-1.63z" fill="#FBBC05"/>
+                                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+                                </svg>
+                            </button>
+                            <button type="button" class="social-btn" aria-label="Sign in with Apple" onclick="window.location.href='404.html'">
+                                <svg viewBox="0 0 24 24" width="36" height="36" fill="#000000">
+                                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-1 .04-2.21.67-2.93 1.49-.62.69-1.16 1.84-1.01 2.96 1.12.09 2.27-.56 2.95-1.39z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card-toggle-text">
+                        Already have an account? <a href="#" onclick="toggleAuthMode('login'); return false;">Login</a>
+                    </div>
+                </div>
+
+                <!-- ===================== SUCCESS VIEW ===================== -->
+                <div class="form-view" id="success-view" style="display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%;">
+                    <img src="assets/images/sign up suceesfulllimage.webp" alt="Signup Successful" style="width: 100%; max-width: 280px; margin: 0 auto 30px; display: block;" />
+                    
+                    <div style="background-color: #9cbccd; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                        <svg viewBox="0 0 24 24" width="30" height="30" fill="#000000">
+                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                        </svg>
+                    </div>
+                    
+                    <h3 style="font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 700; color: #1a2530; margin-bottom: 30px; text-align: center;">
+                        successfully we are member of Stackly
+                    </h3>
+                    
+                    <button type="button" onclick="window.location.href='index.html'" style="background-color: #000000; color: #ffffff; border: none; padding: 15px 20px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 500; width: 100%; max-width: 320px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; margin: 0 auto;">
+                        <span style="flex-grow: 1; text-align: center;">Home Screen</span>
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ===================== JAVASCRIPT CONTROLS ===================== -->
+    <script src="validation.js"></script>
+    <script>
+        let currentRole = 'user';
+        let currentSignupRole = 'user';
+
+        // Check URL Query Parameter mode on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const mode = urlParams.get('mode');
+            if (mode === 'signup') {
+                toggleAuthMode('signup');
+            } else {
+                toggleAuthMode('login');
+            }
+
+            // Register validation event listeners
+            setupAuthValidation();
+        });
+
+        // Toggle Auth View Between Login and Signup
+        function toggleAuthMode(mode) {
+            const loginView = document.getElementById('login-view');
+            const signupView = document.getElementById('signup-view');
+
+            const successView = document.getElementById('success-view');
+            if (successView) {
+                successView.classList.remove('active');
+                successView.style.display = 'none';
+            }
+
+            if (mode === 'signup') {
+                loginView.classList.remove('active');
+                loginView.style.display = 'none';
+
+                signupView.style.display = 'block';
+                setTimeout(() => signupView.classList.add('active'), 10);
+            } else {
+                signupView.classList.remove('active');
+                signupView.style.display = 'none';
+
+                loginView.style.display = 'block';
+                setTimeout(() => loginView.classList.add('active'), 10);
+            }
+        }
+
+        // Set Login Role (User or Admin)
+        function setLoginRole(role) {
+            currentRole = role;
+            document.getElementById('role-user').classList.toggle('active', role === 'user');
+            document.getElementById('role-admin').classList.toggle('active', role === 'admin');
+        }
+
+        // Set Signup Role (User or Admin)
+        function setSignupRole(role) {
+            currentSignupRole = role;
+            document.getElementById('signup-role-user').classList.toggle('active', role === 'user');
+            document.getElementById('signup-role-admin').classList.toggle('active', role === 'admin');
+        }
+
+        // Helper functions for validation
+        const validateEmail = (email) => {
+            const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            return regex.test(email.trim());
+        };
+
+        const validatePhone = (phone) => {
+            const regex = /^\+?[0-9\s\-()]{7,15}$/;
+            return regex.test(phone.trim());
+        };
+
+        const checkField = (input, validateFn, errorMsg) => {
+            const val = input.value;
+            const isValid = validateFn(val);
+            let errSpan = input.parentElement.querySelector(".validation-error");
+            if (!errSpan) {
+                errSpan = document.createElement("span");
+                errSpan.className = "validation-error";
+                input.parentElement.appendChild(errSpan);
+            }
+            errSpan.textContent = errorMsg;
+            
+            if (!isValid) {
+                input.classList.remove("is-valid");
+                input.classList.add("is-invalid");
+                return false;
+            } else {
+                input.classList.remove("is-invalid");
+                input.classList.add("is-valid");
+                return true;
+            }
+        };
+
+        const setupAuthValidation = () => {
+            const loginEmail = document.getElementById("login-email");
+            const loginPass = document.getElementById("login-password");
+            
+            if (loginEmail) {
+                loginEmail.addEventListener("blur", () => checkField(loginEmail, validateEmail, "Please enter a valid email address."));
+                loginEmail.addEventListener("input", () => {
+                    if (loginEmail.classList.contains("is-invalid") || loginEmail.classList.contains("is-valid")) {
+                        checkField(loginEmail, validateEmail, "Please enter a valid email address.");
+                    }
+                });
+            }
+            
+            if (loginPass) {
+                loginPass.addEventListener("blur", () => checkField(loginPass, val => val.length >= 6, "Password must be at least 6 characters."));
+                loginPass.addEventListener("input", () => {
+                    if (loginPass.classList.contains("is-invalid") || loginPass.classList.contains("is-valid")) {
+                        checkField(loginPass, val => val.length >= 6, "Password must be at least 6 characters.");
+                    }
+                });
+            }
+
+            const signupUser = document.getElementById("signup-username");
+            const signupEmail = document.getElementById("signup-email");
+            const signupPhone = document.getElementById("signup-phone");
+            const signupPass = document.getElementById("signup-password");
+
+            if (signupUser) {
+                signupUser.addEventListener("blur", () => checkField(signupUser, val => val.trim().length >= 2, "Username must be at least 2 characters."));
+                signupUser.addEventListener("input", () => {
+                    if (signupUser.classList.contains("is-invalid") || signupUser.classList.contains("is-valid")) {
+                        checkField(signupUser, val => val.trim().length >= 2, "Username must be at least 2 characters.");
+                    }
+                });
+            }
+
+            if (signupEmail) {
+                signupEmail.addEventListener("blur", () => checkField(signupEmail, validateEmail, "Please enter a valid email address."));
+                signupEmail.addEventListener("input", () => {
+                    if (signupEmail.classList.contains("is-invalid") || signupEmail.classList.contains("is-valid")) {
+                        checkField(signupEmail, validateEmail, "Please enter a valid email address.");
+                    }
+                });
+            }
+
+            if (signupPhone) {
+                signupPhone.addEventListener("blur", () => checkField(signupPhone, validatePhone, "Please enter a valid phone number."));
+                signupPhone.addEventListener("input", () => {
+                    if (signupPhone.classList.contains("is-invalid") || signupPhone.classList.contains("is-valid")) {
+                        checkField(signupPhone, validatePhone, "Please enter a valid phone number.");
+                    }
+                });
+            }
+
+            if (signupPass) {
+                signupPass.addEventListener("blur", () => checkField(signupPass, val => val.length >= 6, "Password must be at least 6 characters."));
+                signupPass.addEventListener("input", () => {
+                    if (signupPass.classList.contains("is-invalid") || signupPass.classList.contains("is-valid")) {
+                        checkField(signupPass, val => val.length >= 6, "Password must be at least 6 characters.");
+                    }
+                });
+            }
+
+            const signupConfirm = document.getElementById("signup-confirm-password");
+            if (signupConfirm) {
+                signupConfirm.addEventListener("blur", () => checkField(signupConfirm, val => val === signupPass.value, "Passwords do not match."));
+                signupConfirm.addEventListener("input", () => {
+                    if (signupConfirm.classList.contains("is-invalid") || signupConfirm.classList.contains("is-valid")) {
+                        checkField(signupConfirm, val => val === signupPass.value, "Passwords do not match.");
+                    }
+                });
+            }
+        };
+
+        // Handle Login Submission
+        function handleLogin(event) {
+            event.preventDefault();
+            const loginEmail = document.getElementById("login-email");
+            const loginPass = document.getElementById("login-password");
+            
+            const isEmailValid = checkField(loginEmail, validateEmail, "Please enter a valid email address.");
+            const isPassValid = checkField(loginPass, val => val.length >= 6, "Password must be at least 6 characters.");
+            
+            if (isEmailValid && isPassValid) {
+                const email = loginEmail.value.trim();
+                localStorage.setItem('email', email);
+                localStorage.setItem('role', currentRole);
+                
+                // Pre-populate name if not already set or override based on role
+                if (currentRole === 'admin') {
+                    localStorage.setItem('name', 'Admin User');
+                    window.location.href = './admindashboard.html';
+                } else {
+                    localStorage.setItem('name', 'Stackly User');
+                    window.location.href = './user dashboard.html';
+                }
+            } else {
+                // Shake form container
+                const card = document.querySelector(".login-card");
+                card.classList.add("is-invalid-shake");
+                setTimeout(() => card.classList.remove("is-invalid-shake"), 400);
+            }
+        }
+
+        // Handle Signup Submission & Redirect back to Login
+        function handleSignup(event) {
+            event.preventDefault();
+
+            const signupUser = document.getElementById("signup-username");
+            const signupEmail = document.getElementById("signup-email");
+            const signupPhone = document.getElementById("signup-phone");
+            const signupPass = document.getElementById("signup-password");
+            const signupConfirm = document.getElementById("signup-confirm-password");
+
+            const isUserValid = checkField(signupUser, val => val.trim().length >= 2, "Username must be at least 2 characters.");
+            const isEmailValid = checkField(signupEmail, validateEmail, "Please enter a valid email address.");
+            const isPhoneValid = checkField(signupPhone, validatePhone, "Please enter a valid phone number.");
+            const isPassValid = checkField(signupPass, val => val.length >= 6, "Password must be at least 6 characters.");
+            const isConfirmValid = checkField(signupConfirm, val => val === signupPass.value, "Passwords do not match.");
+
+            if (isUserValid && isEmailValid && isPhoneValid && isPassValid && isConfirmValid) {
+                const email = signupEmail.value.trim();
+                const name = signupUser.value.trim();
+                
+                // Set credentials in localStorage
+                localStorage.setItem('email', email);
+                localStorage.setItem('name', name);
+                localStorage.setItem('role', currentSignupRole);
+
+                // Instead of a banner, show the success view
+                const signupView = document.getElementById('signup-view');
+                const successView = document.getElementById('success-view');
+
+                signupView.classList.remove('active');
+                signupView.style.display = 'none';
+
+                successView.style.display = 'flex';
+                setTimeout(() => successView.classList.add('active'), 10);
+            } else {
+                // Shake form container
+                const card = document.querySelector(".login-card");
+                card.classList.add("is-invalid-shake");
+                setTimeout(() => card.classList.remove("is-invalid-shake"), 400);
+            }
+        }
+
+        // Navigate to home page as requested
+        function goToDashboard() {
+            window.location.href = './index.html';
+        }
+    </script>
+</body>
+
+</html>

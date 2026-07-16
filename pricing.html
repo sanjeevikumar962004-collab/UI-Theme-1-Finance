@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pricing – Stackly Financial</title>
+    <meta name="description"
+        content="Choose the financial plan that fits your goals. Stackly offers transparent and simple pricing packages for investments, loans, and payments." />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@600&family=Poppins:wght@500;600&family=Montserrat:wght@400;500;600;700;800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        /* ============================================================
+           PRICING HERO SECTION
+           ============================================================ */
+        .pricing-hero {
+            min-height: 65vh;
+            background: #385868; /* Continuous solid background to match the attached UI */
+            padding-top: calc(var(--nav-h) + 40px);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+            width: 100%;
+        }
+
+        .pricing-hero-visual {
+            flex: 0 0 45%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pricing-hero-visual img {
+            width: 100%;
+            max-width: 480px;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.15));
+        }
+
+        .pricing-hero-content {
+            flex: 0 0 50%;
+            color: #ffffff;
+        }
+
+        .pricing-hero-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(28px, 3.2vw, 42px);
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 20px;
+        }
+
+        .pricing-hero-subtitle {
+            font-size: 15px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.72);
+            line-height: 1.8;
+        }
+
+        /* ============================================================
+           PRICING BODY (CONTAINER & GRADIENT BACKGROUND)
+           ============================================================ */
+        .pricing-body-wrapper {
+            background-color: #385868; /* Solid slate-blue theme background */
+            padding: 40px 40px 0; /* Bottom padding handled by full-width support banner */
+        }
+
+        .pricing-body-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ============================================================
+           BUSINESS VISUAL BOX (WITH TWO PHOTOS & TREND SVG)
+           ============================================================ */
+        .business-visual-box {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 45px 45px 95px 45px;
+            width: 100%;
+            max-width: 900px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            margin-bottom: 90px;
+        }
+
+        .visual-images-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            width: 100%;
+            z-index: 2;
+        }
+
+        .visual-img-container {
+            flex: 1;
+            overflow: hidden;
+            border-radius: 16px;
+            height: 280px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .visual-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Connecting Trend SVG Zigzag */
+        .visual-svg-container {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            height: 130px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .trend-path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawTrendLine 2.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+        }
+
+        @keyframes drawTrendLine {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        /* ============================================================
+           QUOTE SECTION
+           ============================================================ */
+        .pricing-quote {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(22px, 2.5vw, 32px);
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 70px;
+            max-width: 800px;
+            line-height: 1.4;
+        }
+
+        /* ============================================================
+           PRICING CARDS GRID
+           ============================================================ */
+        .pricing-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            width: 100%;
+            margin-bottom: 90px;
+        }
+
+        .pricing-card-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .pricing-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 45px 30px;
+            width: 100%;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 440px;
+        }
+
+        .plan-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a2530;
+            margin-bottom: 20px;
+        }
+
+        .plan-price-box {
+            margin-bottom: 25px;
+        }
+
+        .plan-price {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 38px;
+            font-weight: 800;
+            color: #1a2530;
+            line-height: 1.1;
+        }
+
+        .plan-period {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: #7f8c8d;
+            margin-top: 4px;
+        }
+
+        .plan-features-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a2530;
+            margin-bottom: 12px;
+        }
+
+        .plan-features-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .plan-features-list li {
+            font-size: 13px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .btn-pricing-action {
+            margin-top: 25px;
+            background: #23A6F0;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            padding: 13px 36px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            width: auto;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(35, 166, 240, 0.3);
+            transition: background var(--tr-fast), transform var(--tr-fast), box-shadow var(--tr-fast);
+        }
+
+        .btn-pricing-action:hover {
+            background: #108edc;
+            transform: translateY(-2px);
+        }
+
+        /* ============================================================
+           BOTTOM SUPPORT BANNER
+           ============================================================ */
+        .support-banner-section {
+            background-color: #ffffff;
+            width: 100%;
+            padding: 35px 40px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
+        }
+
+        .support-banner-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .support-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .support-icon-img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .support-text-box {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .support-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a2530;
+        }
+
+        .support-desc {
+            font-size: 13px;
+            font-weight: 600;
+            color: #7f8c8d;
+        }
+
+        .btn-support-talk {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #23A6F0;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            padding: 14px 28px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: background var(--tr-fast);
+        }
+
+        .btn-support-talk:hover {
+            background: #108edc;
+        }
+
+        /* ============================================================
+           RESPONSIVE PRICING STYLES
+           ============================================================ */
+         @media (max-width: 991px) {
+            .pricing-hero-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 40px;
+                padding: 40px 20px;
+            }
+            .pricing-hero-visual, .pricing-hero-content {
+                flex: 0 0 100%;
+                width: 100%;
+            }
+            .pricing-body-wrapper {
+                padding: 40px 20px 0;
+            }
+            .business-visual-box {
+                padding: 24px 24px 75px 24px; /* Bottom padding for graph on tablets */
+                margin-bottom: 60px;
+            }
+            .visual-img-container {
+                height: 200px;
+            }
+            .pricing-cards-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                margin-bottom: 60px;
+            }
+            .pricing-card {
+                min-height: auto;
+                padding: 30px 20px;
+            }
+            .pricing-quote {
+                margin-bottom: 45px;
+                font-size: 20px;
+            }
+            .support-banner-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .support-left {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .btn-support-talk {
+                align-self: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .business-visual-box {
+                padding: 24px; /* Reset bottom padding since trendline is hidden */
+            }
+            .visual-images-row {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .visual-img-container {
+                height: 160px;
+            }
+            .visual-svg-container {
+                display: none; /* Hide curve svg on mobile viewports for clean look */
+            }
+            .support-banner-section {
+                padding: 30px 20px;
+            }
+            .support-title {
+                font-size: 17px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="preloader.css" />
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="loader-wrapper" id="preloader">
+        <div class="loader">
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__ball"></div>
+        </div>
+    </div>
+    <!-- ===================== NAVBAR ===================== -->
+    <header class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="./index.html" class="nav-logo" id="nav-logo-link" aria-label="Stackly Home">
+                <img src="assets/images/stackly logo.webp" alt="Stackly Logo" class="logo-img" id="logo-img" />
+            </a>
+
+            <nav class="nav-links" id="nav-links" aria-label="Main navigation">
+                <a href="./index.html" class="nav-link" id="nav-home">Home</a>
+                <a href="./product.html" class="nav-link" id="nav-product">Product</a>
+                <a href="./pricing.html" class="nav-link active" id="nav-pricing">Pricing</a>
+                <a href="./contact.html" class="nav-link" id="nav-contact">Contact</a>
+                <a href="./about.html" class="nav-link" id="nav-about">About</a>
+            </nav>
+
+            <div class="nav-actions" id="nav-actions">
+                <a href="./login.html?mode=login" class="btn-login" id="btn-login">Login</a>
+                <a href="./login.html?mode=signup" class="btn-member" id="btn-member-nav">
+                    Become a member <span class="btn-arrow">→</span>
+                </a>
+            </div>
+
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                <span class="ham-line"></span>
+                <span class="ham-line"></span>
+                <span class="ham-line"></span>
+            </button>
+        </div>
+
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="./index.html" class="mobile-link" id="mob-home">Home</a>
+            <a href="./product.html" class="mobile-link" id="mob-product">Product</a>
+            <a href="./pricing.html" class="mobile-link active" id="mob-pricing">Pricing</a>
+            <a href="./contact.html" class="mobile-link" id="mob-contact">Contact</a>
+            <a href="./about.html" class="mobile-link" id="mob-about">About</a>
+            <a href="./login.html?mode=login" class="mobile-link" id="mob-login">Login</a>
+            <a href="./login.html?mode=signup" class="btn-member mobile-btn-member" id="mob-member">
+                Become a member →
+            </a>
+        </div>
+    </header>
+
+    <!-- ===================== PRICING HERO SECTION ===================== -->
+    <section class="pricing-hero">
+        <div class="pricing-hero-container">
+            <!-- Left Visual Graph (Exact Pricing Hero Image) -->
+            <div class="pricing-hero-visual">
+                <img src="assets/images/pricing hero.webp" alt="Growth Chart Graph" />
+            </div>
+
+            <!-- Right Content -->
+            <div class="pricing-hero-content">
+                <h1 class="pricing-hero-title">
+                    Simple, Transparent Pricing<br />for Every Financial Goal
+                </h1>
+                <p class="pricing-hero-subtitle">
+                    choose the plan that fits your needs.all plans come with expert support and powerful tools to help you grow your wealth.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== PRICING BODY CONTAINER ===================== -->
+    <div class="pricing-body-wrapper">
+        <div class="pricing-body-container">
+            
+            <!-- Business Visual Box (Two side-by-side images with overlay SVG line chart) -->
+            <div class="business-visual-box">
+                <div class="visual-images-row">
+                    <div class="visual-img-container">
+                        <img src="assets/images/pricing left image.webp" alt="Business Meeting" />
+                    </div>
+                    <div class="visual-img-container">
+                        <img src="assets/images/pricing right image.webp" alt="Analyzing Finances at Desk" />
+                    </div>
+                </div>
+                <!-- Dynamic SVG trendline zigzag connecting the images -->
+                <div class="visual-svg-container">
+                    <svg viewBox="0 0 900 130" width="100%" height="100%" fill="none" preserveAspectRatio="none">
+                        <path class="trend-path" d="M 120 95 L 150 120 L 170 100 L 190 110 L 230 90 L 310 122 L 370 85 L 425 102 L 555 15" stroke="#60b674" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Quote Header -->
+            <blockquote class="pricing-quote">
+                "The price of anything is the amount of life you exchange for it."
+            </blockquote>
+
+            <!-- Pricing Cards Grid -->
+            <div class="pricing-cards-grid">
+                <!-- Basic Card -->
+                <div class="pricing-card-wrapper">
+                    <div class="pricing-card">
+                        <h3 class="plan-name">Basic</h3>
+                        <div class="plan-price-box">
+                            <div class="plan-price">$190/</div>
+                            <div class="plan-period">Per Month</div>
+                        </div>
+                        <h4 class="plan-features-title">Features</h4>
+                        <ul class="plan-features-list">
+                            <li>Basic Account Features</li>
+                            <li>Limited Transactions</li>
+                            <li>Basic Customer Support</li>
+                            <li>Customizable Permissions</li>
+                            <li>Advanced Reporting</li>
+                        </ul>
+                    </div>
+                    <button class="btn-pricing-action">Click Here</button>
+                </div>
+
+                <!-- Advanced Card -->
+                <div class="pricing-card-wrapper">
+                    <div class="pricing-card">
+                        <h3 class="plan-name">Advanced</h3>
+                        <div class="plan-price-box">
+                            <div class="plan-price">$280/</div>
+                            <div class="plan-period">Per Month</div>
+                        </div>
+                        <h4 class="plan-features-title">Features</h4>
+                        <ul class="plan-features-list">
+                            <li>Basic Account Features</li>
+                            <li>Limited Transactions</li>
+                            <li>Basic Customer Support</li>
+                            <li>Customizable Permissions</li>
+                            <li>Advanced Reporting</li>
+                        </ul>
+                    </div>
+                    <button class="btn-pricing-action">Click Here</button>
+                </div>
+
+                <!-- Business Card -->
+                <div class="pricing-card-wrapper">
+                    <div class="pricing-card">
+                        <h3 class="plan-name">Business</h3>
+                        <div class="plan-price-box">
+                            <div class="plan-price">$490/</div>
+                            <div class="plan-period">Per Month</div>
+                        </div>
+                        <h4 class="plan-features-title">Features</h4>
+                        <ul class="plan-features-list">
+                            <li>Basic Account Features</li>
+                            <li>Limited Transactions</li>
+                            <li>Basic Customer Support</li>
+                            <li>Customizable Permissions</li>
+                            <li>Advanced Reporting</li>
+                        </ul>
+                    </div>
+                    <button class="btn-pricing-action">Click Here</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ===================== SUPPORT BANNER SECTION ===================== -->
+    <section class="support-banner-section">
+        <div class="support-banner-container">
+            <div class="support-left">
+                <img src="assets/images/pricing caller icon.webp" alt="Headphones Support" class="support-icon-img" />
+                <div class="support-text-box">
+                    <h3 class="support-title">Need Help For Choosing a Plan?</h3>
+                    <p class="support-desc">our financial experts are here to help you find the best plan for your goals</p>
+                </div>
+            </div>
+            <a href="#" class="btn-support-talk">Talk to an Expert →</a>
+        </div>
+    </section>
+
+    <!-- ===================== FOOTER SECTION ===================== -->
+    <footer class="main-footer" id="main-footer">
+        <div class="footer-container">
+            <div class="footer-columns">
+                <div class="footer-column col-get-touch">
+                    <h3>Get In Touch</h3>
+                    <p>the quick fox jumps over the Stackly</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">
+                            <img src="assets/images/facebook.webp" alt="Facebook" />
+                        </a>
+                        <a href="#" class="social-icon">
+                            <img src="assets/images/instagram.webp" alt="Instagram" />
+                        </a>
+                        <a href="#" class="social-icon">
+                            <img src="assets/images/twitter.webp" alt="Twitter" />
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Company info</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Carrier</a></li>
+                        <li><a href="#">We are hiring</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Features</h3>
+                    <ul>
+                        <li><a href="#">Business Marketing</a></li>
+                        <li><a href="#">User Analytic</a></li>
+                        <li><a href="#">Live Chat</a></li>
+                        <li><a href="#">Unlimited Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">IOS &amp; Android</a></li>
+                        <li><a href="#">Watch a Demo</a></li>
+                        <li><a href="#">Customers</a></li>
+                        <li><a href="#">API</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>All Right Reserved in Stackly</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="validation.js"></script>
+</body>
+
+</html>

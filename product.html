@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products – Stackly Financial</title>
+    <meta name="description"
+        content="Explore Stackly's financial products including investments, loans, and payment solutions. Start your financial journey today." />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@600&family=Poppins:wght@500;600&family=Montserrat:wght@400;500;600;700;800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        /* ============================================================
+           PRODUCT PAGE – Additional Styles
+           ============================================================ */
+
+        /* ---- Product Hero ---- */
+        .product-hero {
+            min-height: 100vh;
+            background: #466874; /* Matching the solid background color in the image */
+            padding-top: var(--nav-h);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-hero-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 60px 40px 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            width: 100%;
+        }
+
+        /* ── LEFT CONTENT ── */
+        .product-hero-content {
+            flex: 0 0 auto;
+            width: 42%;
+            animation: fadeSlideUp 0.8s ease both;
+        }
+
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .product-hero-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(28px, 3.2vw, 46px);
+            font-weight: 800;
+            line-height: 1.2;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+
+        .product-hero-subtitle {
+            font-size: 14px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.72);
+            line-height: 1.75;
+            margin-bottom: 40px;
+        }
+
+        .btn-get-started {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #23A6F0;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            padding: 13px 28px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            margin-bottom: 48px;
+        }
+
+        /* Trusted users strip */
+        .trusted-strip {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .trusted-avatars {
+            display: flex;
+        }
+
+        .trusted-avatars img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255,255,255,0.45);
+            margin-left: -14px;
+        }
+
+        .trusted-avatars img:first-child { margin-left: 0; }
+
+        .trusted-text {
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.75);
+            line-height: 1.4;
+        }
+
+        /* ── RIGHT VISUAL – ring + cards ── */
+        .product-hero-visual {
+            flex: 0 0 auto;
+            width: 54%;
+            position: relative;
+            height: 640px;
+            animation: fadeSlideUp 0.8s 0.2s ease both;
+        }
+
+        /* Large decorative ring */
+        .hero-ring {
+            position: absolute;
+            width: 620px;
+            height: 620px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.4);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        /* Cards absolutely positioned inside visual area */
+        .dash-card {
+            position: absolute;
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px;
+            color: #000;
+            box-shadow: 0 10px 36px rgba(0,0,0,0.18);
+        }
+
+        /* Balance card – top-center */
+        #dash-balance-card {
+            top: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 290px;
+        }
+
+        /* Spend card – bottom-center, offset left */
+        #dash-spend-card {
+            bottom: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 320px;
+            height: 220px;
+        }
+
+        /* --- Total Balance Card Styles --- */
+        .dash-card-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #000;
+            margin-bottom: 12px;
+        }
+
+        .dash-card-old-val {
+            font-size: 14px;
+            font-weight: 500;
+            color: #000;
+            margin-bottom: 8px;
+        }
+
+        .dash-card-value {
+            font-size: 26px;
+            font-weight: 700;
+            color: #000;
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+        }
+
+        .dash-badge-positive {
+            font-size: 13px;
+            font-weight: 500;
+            color: #22c55e;
+            background: none;
+            padding: 0;
+        }
+
+        /* --- Spend This Month Card Styles --- */
+        .spend-card-header {
+            margin-bottom: 16px;
+        }
+        
+        .spend-card-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #000;
+            margin-bottom: 8px;
+        }
+
+        .spend-card-amount {
+            font-size: 15px;
+            font-weight: 600;
+            color: #22c55e;
+        }
+
+        /* Floating squares */
+        .spend-squares {
+            position: absolute;
+            top: -10px;
+            left: 58%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sq {
+            width: 18px;
+            height: 18px;
+            border-radius: 2px;
+        }
+        .sq-blue   { background: #3b82f6; }
+        .sq-green  { background: #22c55e; }
+        .sq-pink   { background: #ec4899; }
+        .sq-orange { background: #f97316; }
+
+        /* Pngtree donut image */
+        .spend-donut-img {
+            position: absolute;
+            bottom: 24px;
+            left: 24px;
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+        }
+
+        /* Text Labels */
+        .spend-labels {
+            position: absolute;
+            bottom: 24px;
+            right: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .spl-row {
+            display: flex;
+            justify-content: space-between;
+            width: 110px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000;
+        }
+
+        /* ── FLOATING ICONS ── */
+        .float-icon {
+            position: absolute;
+            z-index: 3;
+            transform: translate(-50%, -50%);
+        }
+
+        .float-icon img {
+            object-fit: contain;
+            filter: drop-shadow(0 6px 16px rgba(0,0,0,0.28));
+        }
+
+        /* Bar chart – top right, on ring */
+        .float-icon.chart-icon {
+            top: 15%;
+            left: 85%;
+        }
+        .float-icon.chart-icon img { width: 80px; height: 80px; }
+
+        /* Wallet – bottom right, on ring */
+        .float-icon.wallet-icon {
+            top: 80%;
+            left: 90%;
+        }
+        .float-icon.wallet-icon img { width: 80px; height: 80px; }
+
+        /* Shield – middle left of visual, on ring */
+        .float-icon.shield-icon {
+            top: 50%;
+            left: 0%;
+        }
+        .float-icon.shield-icon img { width: 75px; height: 75px; }
+
+        /* ============================================================
+           EXPLORE PRODUCTS SECTION
+           ============================================================ */
+        /* ============================================================
+           EXPLORE PRODUCTS & WHY CHOOSE STACKLY SECTION
+           ============================================================ */
+        .explore-products-section {
+            background-color: #385868; /* Matches user image */
+            padding: 80px 40px 90px;
+            font-family: var(--font-main);
+        }
+
+        .explore-products-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .explore-title-main {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 50px;
+        }
+
+        .explore-grid-products {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-bottom: 90px;
+        }
+
+        .explore-product-card {
+            background: #ffffff;
+            border-radius: 40px; /* Highly rounded as in image */
+            padding: 45px 40px 50px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .explore-product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+        }
+
+        .explore-card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .explore-card-icon {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+        }
+
+        .explore-card-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: #0d1b2a;
+        }
+
+        .explore-card-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .explore-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 0;
+        }
+
+        .explore-item-link {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 17px;
+            font-weight: 600;
+            color: #5d6d7e;
+            text-decoration: none;
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+            transition: color var(--tr-fast);
+        }
+
+        .explore-item-link:hover {
+            color: var(--clr-blue);
+        }
+
+        .explore-item-chevron {
+            font-size: 16px;
+            font-weight: 600;
+            color: #5d6d7e;
+            transition: transform var(--tr-fast), color var(--tr-fast);
+        }
+
+        .explore-item-link:hover .explore-item-chevron {
+            transform: translateX(4px);
+            color: var(--clr-blue);
+        }
+
+        /* Bottom Section: Why Chooses Stackly? */
+        .why-choose-title {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 50px;
+        }
+
+        .why-choose-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .why-choose-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 24px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: transform var(--tr-mid);
+        }
+
+        .why-choose-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .why-choose-icon {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .why-choose-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .why-choose-card-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #0d1b2a;
+        }
+
+        .why-choose-card-desc {
+            font-size: 12px;
+            font-weight: 600;
+            color: #0d1b2a;
+            line-height: 1.4;
+        }
+
+        /* Responsive Styles for new sections */
+        @media (max-width: 1024px) {
+            .explore-grid-products {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+            }
+            .why-choose-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .explore-products-section {
+                padding: 60px 20px 70px;
+            }
+            .explore-grid-products {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                margin-bottom: 60px;
+            }
+            .why-choose-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .explore-product-card {
+                padding: 35px 30px;
+            }
+            .explore-title-main, .why-choose-title {
+                font-size: 28px;
+                margin-bottom: 35px;
+            }
+        }
+
+        /* ============================================================
+           POWERFUL FEATURES SECTION
+           ============================================================ */
+        .features-section {
+            max-width: 1100px;
+            margin: 80px auto;
+            padding: 0 40px;
+        }
+        .section-title {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 40px;
+        }
+        .features-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+        .feature-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .half-card {
+            flex: 1 1 calc(50% - 12px);
+            min-height: 280px;
+        }
+        .full-card {
+            flex: 1 1 100%;
+            min-height: 220px;
+            align-items: center;
+        }
+        .fc-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .fc-header.justify-center {
+            justify-content: center;
+        }
+        .fc-icon {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+        .fc-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #000;
+        }
+        .fc-desc {
+            font-size: 13px;
+            color: #000;
+            font-weight: 700;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+        .fc-desc.text-center {
+            text-align: center;
+            max-width: 800px;
+        }
+        
+        /* Bar Graphic CSS */
+        .bar-graphic {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 10px;
+            height: 100px;
+            margin-top: auto;
+        }
+        .bar {
+            width: 16px;
+            background: #23A6F0;
+            border-radius: 4px;
+        }
+        .bar-sm { height: 30px; }
+        .bar-md { height: 50px; }
+        .bar-lg { height: 80px; }
+        .bar-xl { height: 100px; }
+
+        /* Img graphic */
+        .img-graphic {
+            margin-top: auto;
+            text-align: center;
+        }
+        .img-graphic img {
+            max-height: 120px;
+            object-fit: contain;
+        }
+
+        /* Business Finance Graphic */
+        .business-graphic {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .biz-donut {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+        }
+        .biz-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            max-width: 400px;
+        }
+        .biz-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .biz-color {
+            width: 24px;
+            height: 16px;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+        .biz-track {
+            flex: 1;
+            height: 12px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .biz-fill {
+            height: 100%;
+            background: #cbd5e1; /* light gray as seen in image */
+        }
+        .biz-pct {
+            font-size: 14px;
+            font-weight: 700;
+            color: #000;
+            min-width: 40px;
+        }
+
+        /* ============================================================
+           SECURITY SECTION
+           ============================================================ */
+        .security-section {
+            max-width: 1100px;
+            margin: 60px auto;
+            padding: 0 40px;
+        }
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .sec-card {
+            border: 1px solid rgba(255,255,255,0.7);
+            border-radius: 20px;
+            padding: 24px 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            min-height: 120px;
+        }
+        .sec-icon {
+            width: 55px;
+            height: 55px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+        
+        /* Specific styling for the green check box seen in the image */
+        .sec-icon-box {
+            width: 60px;
+            height: 60px;
+            background: #22c55e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            flex-shrink: 0;
+            border: 2px solid #23A6F0;
+            position: relative;
+        }
+        .sec-icon-box svg {
+            width: 40px;
+            height: 40px;
+        }
+        .sec-icon-box .size-badge {
+            position: absolute;
+            bottom: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #23A6F0;
+            color: white;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 2px;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+        
+        .sec-content h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+        .sec-content p {
+            font-size: 13px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.4;
+        }
+
+        /* ============================================================
+           SUMMARY SECTION
+           ============================================================ */
+        .summary-section {
+            max-width: 900px;
+            margin: 80px auto 100px;
+            padding: 0 40px;
+            text-align: center;
+        }
+        .summary-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 24px;
+        }
+        .summary-text {
+            font-size: 15px;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 1200px) {
+            .product-hero-content { width: 45%; }
+            .product-hero-visual { 
+                width: 52%; 
+                height: 520px;
+            }
+            .hero-ring {
+                width: 460px;
+                height: 460px;
+            }
+            #dash-balance-card {
+                width: 240px;
+                top: 40px;
+                padding: 16px 20px;
+            }
+            #dash-spend-card {
+                width: 270px;
+                bottom: 40px;
+                padding: 18px;
+                height: auto;
+                min-height: 180px;
+            }
+            .spend-donut-img {
+                width: 80px;
+                height: 80px;
+                bottom: 18px;
+                left: 18px;
+            }
+            .spend-labels {
+                bottom: 18px;
+                right: 18px;
+                gap: 8px;
+            }
+            .float-icon.chart-icon img { width: 60px; height: 60px; }
+            .float-icon.wallet-icon img { width: 60px; height: 60px; }
+            .float-icon.shield-icon img { width: 55px; height: 55px; }
+
+            .half-card { flex: 1 1 100%; }
+        }
+
+        @media (max-width: 991px) {
+            .product-hero {
+                min-height: auto;
+                padding-top: calc(var(--nav-h) + 20px);
+                padding-bottom: 40px;
+            }
+            .product-hero-container {
+                flex-direction: column;
+                padding: 40px 20px 60px;
+                text-align: center;
+                gap: 30px;
+            }
+            .product-hero-content { width: 100%; }
+            .trusted-strip { justify-content: center; }
+            .product-hero-visual {
+                width: 100%;
+                height: 420px;
+                margin-top: 20px;
+            }
+            .hero-ring {
+                width: 320px;
+                height: 320px;
+            }
+            #dash-balance-card { 
+                width: 220px; 
+                top: 20px; 
+                padding: 12px 16px;
+            }
+            .dash-card-old-val {
+                display: none; /* Hide redundant balance display on mobile/tablet */
+            }
+            .dash-card-value {
+                font-size: 20px;
+                gap: 4px;
+            }
+            #dash-spend-card   { 
+                width: 250px; 
+                bottom: 20px; 
+                padding: 14px 16px;
+                height: 150px;
+            }
+            .spend-squares {
+                display: none; /* Hide squares to prevent overlaps on tablet/mobile */
+            }
+            .spend-donut-img {
+                width: 70px;
+                height: 70px;
+                bottom: 14px;
+                left: 14px;
+            }
+            .spend-labels {
+                bottom: 14px;
+                right: 14px;
+                gap: 6px;
+            }
+            .spend-labels .spl-row {
+                width: 90px;
+                font-size: 11px;
+            }
+            .float-icon { display: none; }
+            .btn-get-started { margin-bottom: 36px; }
+
+            .security-grid { grid-template-columns: 1fr; }
+            .business-graphic { flex-direction: column; gap: 20px; }
+            
+            /* Graphic scaling */
+            .img-graphic img {
+                max-width: 100%;
+                height: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-hero-title {
+                font-size: 28px;
+            }
+            .product-hero-visual {
+                height: 340px;
+            }
+            .hero-ring {
+                width: 260px;
+                height: 260px;
+            }
+            #dash-balance-card {
+                width: 190px;
+                top: 15px;
+                padding: 10px 14px;
+                border-radius: 10px;
+            }
+            .dash-card-label {
+                font-size: 11px;
+                margin-bottom: 4px;
+            }
+            .dash-card-value {
+                font-size: 17px;
+            }
+            .dash-badge-positive {
+                font-size: 10px;
+            }
+            #dash-spend-card {
+                width: 220px;
+                bottom: 15px;
+                padding: 10px 12px;
+                border-radius: 12px;
+                height: 125px;
+            }
+            .spend-card-header {
+                margin-bottom: 4px;
+            }
+            .spend-card-label {
+                font-size: 11px;
+                margin-bottom: 2px;
+            }
+            .spend-card-amount {
+                font-size: 13px;
+            }
+            .spend-donut-img {
+                width: 55px;
+                height: 55px;
+                bottom: 10px;
+                left: 10px;
+            }
+            .spend-labels {
+                bottom: 10px;
+                right: 10px;
+                gap: 4px;
+            }
+            .spend-labels .spl-row {
+                width: 80px;
+                font-size: 9px;
+            }
+            
+            /* Responsive bar graphics */
+            .bar-graphic {
+                gap: 6px;
+            }
+            .bar {
+                width: 10px;
+            }
+            
+            /* Security section padding reduction */
+            .security-section {
+                padding: 0 20px;
+                margin: 40px auto;
+            }
+            .sec-card {
+                padding: 16px 20px;
+                gap: 12px;
+            }
+            
+            /* Summary Section tweaks */
+            .summary-section {
+                padding: 0 20px;
+                margin: 60px auto 80px;
+            }
+            .summary-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="preloader.css" />
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="loader-wrapper" id="preloader">
+        <div class="loader">
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__ball"></div>
+        </div>
+    </div>
+    <!-- ===================== NAVBAR ===================== -->
+    <header class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="./index.html" class="nav-logo" id="nav-logo-link" aria-label="Stackly Home">
+                <img src="assets/images/stackly logo.webp" alt="Stackly Logo" class="logo-img" id="logo-img" />
+            </a>
+
+            <nav class="nav-links" id="nav-links" aria-label="Main navigation">
+                <a href="./index.html" class="nav-link" id="nav-home">Home</a>
+                <a href="./product.html" class="nav-link active" id="nav-product">Product</a>
+                <a href="./pricing.html" class="nav-link" id="nav-pricing">Pricing</a>
+                <a href="./contact.html" class="nav-link" id="nav-contact">Contact</a>
+                <a href="./about.html" class="nav-link" id="nav-about">About</a>
+            </nav>
+
+            <div class="nav-actions" id="nav-actions">
+                <a href="./login.html?mode=login" class="btn-login" id="btn-login">Login</a>
+                <a href="./login.html?mode=signup" class="btn-member" id="btn-member-nav">
+                    Become a member <span class="btn-arrow">→</span>
+                </a>
+            </div>
+
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                <span class="ham-line"></span>
+                <span class="ham-line"></span>
+                <span class="ham-line"></span>
+            </button>
+        </div>
+
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="./index.html" class="mobile-link" id="mob-home">Home</a>
+            <a href="./product.html" class="mobile-link" id="mob-product">Product</a>
+            <a href="./pricing.html" class="mobile-link" id="mob-pricing">Pricing</a>
+            <a href="./contact.html" class="mobile-link" id="mob-contact">Contact</a>
+            <a href="./about.html" class="mobile-link" id="mob-about">About</a>
+            <a href="./login.html?mode=login" class="mobile-link" id="mob-login">Login</a>
+            <a href="./login.html?mode=signup" class="btn-member mobile-btn-member" id="mob-member">
+                Become a member →
+            </a>
+        </div>
+    </header>
+
+    <!-- ===================== PRODUCT HERO SECTION ===================== -->
+    <section class="product-hero" id="product-hero">
+        <div class="product-hero-container">
+
+            <!-- Left Content -->
+            <div class="product-hero-content" id="product-hero-content">
+                <h1 class="product-hero-title" id="product-hero-title">
+                    Start Your Financial<br />Journey
+                </h1>
+                <p class="product-hero-subtitle" id="product-hero-subtitle">
+                    Everything you need to manage payments,<br />
+                    expenses, investments, and growth—all in one place.
+                </p>
+                <a href="#explore-products" class="btn-get-started" id="btn-get-started">
+                    Get Started
+                </a>
+
+                <!-- Trusted users strip at the bottom of left col -->
+                <div class="trusted-strip" id="trusted-strip">
+                    <div class="trusted-avatars">
+                        <img src="assets/images/product home contact 1.webp" alt="User 1" />
+                        <img src="assets/images/product home contact 2.webp" alt="User 2" />
+                        <img src="assets/images/product home contact 3.webp" alt="User 3" />
+                        <img src="assets/images/product home contact 4.webp" alt="User 4" />
+                        <img src="assets/images/product home contact 5.webp" alt="User 5" />
+                    </div>
+                    <span class="trusted-text">Trusted by 250k+ users worldwide</span>
+                </div>
+            </div>
+
+            <!-- Right Visual – decorative ring + positioned cards + floating icons -->
+            <div class="product-hero-visual" id="product-hero-visual">
+
+                <!-- Decorative circle ring (icons positioned exactly on the circle path inside it) -->
+                <div class="hero-ring" id="hero-ring">
+                    <!-- Floating: bar chart top-right -->
+                    <div class="float-icon chart-icon" id="float-chart">
+                        <img src="assets/images/product home bar chart.webp" alt="Bar chart" />
+                    </div>
+
+                    <!-- Floating: wallet bottom-right -->
+                    <div class="float-icon wallet-icon" id="float-wallet">
+                        <img src="assets/images/product home wallet.webp" alt="Wallet" />
+                    </div>
+
+                    <!-- Floating: shield middle-left -->
+                    <div class="float-icon shield-icon" id="float-shield">
+                        <img src="assets/images/product home privacy.webp" alt="Security Shield" />
+                    </div>
+                </div>
+
+                <!-- Total Balance Card – top center of ring -->
+                <div class="dash-card" id="dash-balance-card">
+                    <div class="dash-card-label">Total Balance</div>
+                    <div class="dash-card-old-val">$78,250.00</div>
+                    <div class="dash-card-value">
+                        $78,250.00
+                        <span class="dash-badge-positive">+1.29%</span>
+                    </div>
+                </div>
+
+                <!-- Spend This Month Card – bottom center of ring -->
+                <div class="dash-card" id="dash-spend-card">
+                    <!-- Title & Amount -->
+                    <div class="spend-card-header">
+                        <div class="spend-card-label">Spend This Month</div>
+                        <div class="spend-card-amount">$78,250.00</div>
+                    </div>
+
+                    <!-- Floating Colored Squares -->
+                    <div class="spend-squares">
+                        <div class="sq sq-blue"></div>
+                        <div class="sq sq-green"></div>
+                        <div class="sq sq-pink"></div>
+                        <div class="sq sq-orange"></div>
+                    </div>
+
+                    <!-- Locally saved pngtree donut chart -->
+                    <img
+                        src="assets/images/—Pngtree—simple graph circle_14641517 1.webp"
+                        alt="Spending breakdown donut chart"
+                        class="spend-donut-img"
+                    />
+
+                    <!-- Text Labels -->
+                    <div class="spend-labels">
+                        <div class="spl-row">
+                            <span class="spl-name">Moving</span>
+                            <span class="spl-pct">40%</span>
+                        </div>
+                        <div class="spl-row">
+                            <span class="spl-name">Transport</span>
+                            <span class="spl-pct">25%</span>
+                        </div>
+                        <div class="spl-row">
+                            <span class="spl-name">Food</span>
+                            <span class="spl-pct">20%</span>
+                        </div>
+                        <div class="spl-row">
+                            <span class="spl-name">Others</span>
+                            <span class="spl-pct">10%</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ===================== EXPLORE PRODUCTS SECTION ===================== -->
+    <section class="explore-products-section" id="explore-products">
+        <div class="explore-products-container">
+            <h2 class="explore-title-main">Explore Our Products</h2>
+            
+            <div class="explore-grid-products">
+                <!-- Investments Card -->
+                <div class="explore-product-card">
+                    <div class="explore-card-header">
+                        <img src="assets/images/investments icon.webp" alt="Investments" class="explore-card-icon" />
+                        <h3 class="explore-card-title">Investments</h3>
+                    </div>
+                    <ul class="explore-card-list">
+                        <li class="explore-list-item">
+                            <a href="#" class="explore-item-link">
+                                <span>Mutual funds</span>
+                                <span class="explore-item-chevron">&#62;</span>
+                            </a>
+                        </li>
+                        <li class="explore-list-item">
+                            <a href="#" class="explore-item-link">
+                                <span>Stocks</span>
+                                <span class="explore-item-chevron">&#62;</span>
+                            </a>
+                        </li>
+                        <li class="explore-list-item">
+                            <a href="#" class="explore-item-link">
+                                <span>etf s</span>
+                                <span class="explore-item-chevron">&#62;</span>
+                            </a>
+                        </li>
+                        <li class="explore-list-item">
+                            <a href="#" class="explore-item-link">
+                                <span>Retirement plans</span>
+                                <span class="explore-item-chevron">&#62;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Loans Card -->
+                <div class="explore-product-card">
+                    <div class="explore-card-header">
+                        <img src="assets/images/loans icon.webp" alt="Loans" class="explore-card-icon" />
+                        <h3 class="explore-card-title">Loans</h3>
+                    </div>
+                    <ul class="explore-card-list">
+                        <li class="explore-list-item">
+                            <a href="#" class="explore-item-link">
+                                <span>Personal loan</span>
+                                <span class="explore-item-chevron">&#62;</span>
+                            </a>
+                        </li>
+                        <li class="explore-list-item">
+                            <a href="#" class="explore-item-link">
+                                <span>Home loan</span>
+                                <span class="explore-item-chevron">&#62;</span>
+                            </a>
+                        </li>
+                        <li class="explore-list-item">
+                            <a href="#" class="explore-item-link">
+                                <span>Business loan</span>
+                                <span class="explore-item-chevron">&#62;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Payments Card -->
+                <div class="explore-product-card">
+                    <div class="explore-card-header">
+                        <img src="assets/images/payments icon.webp" alt="Payments" class="explore-card-icon" />
+                        <h3 class="explore-card-title">Payments</h3>
+                    </div>
+                    <ul class="explore-card-list">
+                        <li class="explore-list-item">
+                            <a href="#" class="explore-item-link">
+                                <span>Virtual cards</span>
+                                <span class="explore-item-chevron">&#62;</span>
+                            </a>
+                        </li>
+                        <li class="explore-list-item">
+                            <a href="#" class="explore-item-link">
+                                <span>international</span>
+                                <span class="explore-item-chevron">&#62;</span>
+                            </a>
+                        </li>
+                        <li class="explore-list-item">
+                            <a href="#" class="explore-item-link">
+                                <span>Autopay</span>
+                                <span class="explore-item-chevron">&#62;</span>
+                            </a>
+                        </li>
+                        <li class="explore-list-item">
+                            <a href="#" class="explore-item-link">
+                                <span>QR payments</span>
+                                <span class="explore-item-chevron">&#62;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Why Chooses Stackly? Sub-section -->
+            <h2 class="why-choose-title">Why Chooses Stackly?</h2>
+            <div class="why-choose-grid">
+                <!-- Card 1 -->
+                <div class="why-choose-card">
+                    <img src="assets/images/real time analysis icon.webp" alt="Real-Time Analytics" class="why-choose-icon" />
+                    <div class="why-choose-info">
+                        <h4 class="why-choose-card-title">Real-Time Analytics</h4>
+                        <p class="why-choose-card-desc">Make smarter decisions which live insights</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="why-choose-card">
+                    <img src="assets/images/bank level security icon.webp" alt="Bank-Level security" class="why-choose-icon" />
+                    <div class="why-choose-info">
+                        <h4 class="why-choose-card-title">Bank-Level security</h4>
+                        <p class="why-choose-card-desc">Your data and money are 100% safe</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="why-choose-card">
+                    <img src="assets/images/AI- Financial Insights icon.webp" alt="AI- Financial Insights" class="why-choose-icon" />
+                    <div class="why-choose-info">
+                        <h4 class="why-choose-card-title">AI- Financial Insights</h4>
+                        <p class="why-choose-card-desc">Get personalized tips to grow your wealth</p>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="why-choose-card">
+                    <img src="assets/images/ph_headset-fill.webp" alt="24/7 Customer Support" class="why-choose-icon" />
+                    <div class="why-choose-info">
+                        <h4 class="why-choose-card-title">24/7 Customer Support</h4>
+                        <p class="why-choose-card-desc">We're here to help, anytime, anywhere.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== POWERFUL FEATURES SECTION ===================== -->
+    <section class="features-section">
+        <h2 class="section-title">Powerful Features For Every Need</h2>
+        <div class="features-grid">
+            <!-- Smart Budget Planner -->
+            <div class="feature-card half-card">
+                <div class="fc-header">
+                    <img src="assets/images/smart budget planner icon.webp" alt="Budget Planner" class="fc-icon">
+                    <h3 class="fc-title">Smart Budget Planner</h3>
+                </div>
+                <p class="fc-desc">Track Expenses, Create Budgets, And Receive AI-Powered Recommendations To Improve Your Financial Health</p>
+                <div class="bar-graphic">
+                    <div class="bar bar-sm"></div>
+                    <div class="bar bar-md"></div>
+                    <div class="bar bar-lg"></div>
+                    <div class="bar bar-xl"></div>
+                    <div class="bar bar-md"></div>
+                    <div class="bar bar-lg"></div>
+                    <div class="bar bar-md"></div>
+                    <div class="bar bar-xl"></div>
+                    <div class="bar bar-lg"></div>
+                    <div class="bar bar-md"></div>
+                </div>
+            </div>
+
+            <!-- Investment Portfolio -->
+            <div class="feature-card half-card">
+                <div class="fc-header">
+                    <img src="assets/images/investment portfolio icon.webp" alt="Investment Portfolio" class="fc-icon">
+                    <h3 class="fc-title">Investment Portfolio</h3>
+                </div>
+                <p class="fc-desc">Monitor Yourinvestments With Real-Time Perfomance, Risk Analysis,And Personalized Growth Forecasts</p>
+                <div class="img-graphic">
+                    <img src="assets/images/investment portfolio inside.webp" alt="Growth Chart" onerror="this.style.display='none'">
+                </div>
+            </div>
+
+            <!-- Business Finance -->
+            <div class="feature-card full-card">
+                <div class="fc-header justify-center">
+                    <img src="assets/images/business finance icon.webp" alt="Business Finance" class="fc-icon">
+                    <h3 class="fc-title">Business Finance</h3>
+                </div>
+                <p class="fc-desc text-center">Monitor Yourinvestments With Real-Time Perfomance, Risk Analysis,And Personalized Growth Forecasts</p>
+                
+                <div class="business-graphic">
+                    <img src="assets/images/—Pngtree—simple graph circle_14641517 1.webp" alt="Donut Chart" class="biz-donut">
+                    <div class="biz-bars">
+                        <div class="biz-row">
+                            <div class="biz-color" style="background: #a3cbf1;"></div>
+                            <div class="biz-track"><div class="biz-fill" style="width: 100%;"></div></div>
+                            <div class="biz-pct">40%</div>
+                        </div>
+                        <div class="biz-row">
+                            <div class="biz-color" style="background: #5ba3e8;"></div>
+                            <div class="biz-track"><div class="biz-fill" style="width: 75%;"></div></div>
+                            <div class="biz-pct">30%</div>
+                        </div>
+                        <div class="biz-row">
+                            <div class="biz-color" style="background: #23A6F0;"></div>
+                            <div class="biz-track"><div class="biz-fill" style="width: 75%;"></div></div>
+                            <div class="biz-pct">30%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== SECURITY SECTION ===================== -->
+    <section class="security-section">
+        <h2 class="section-title">Your Money , Protected Every Second</h2>
+        <div class="security-grid">
+            <div class="sec-card">
+                <img src="assets/images/256 bit.webp" alt="256-Bit Encryption" class="sec-icon">
+                <div class="sec-content">
+                    <h4>256-Bit Encryption</h4>
+                    <p>top-grade encryption keeps<br>your data safe</p>
+                </div>
+            </div>
+            
+            <div class="sec-card">
+                <img src="assets/images/vecteezy_security-shield-with-check-symbol_24091707 2.webp" alt="Multi-Factor Authentication" class="sec-icon">
+                <div class="sec-content">
+                    <h4>Multi-Factor Authentication</h4>
+                    <p>extra security to protect<br>your account</p>
+                </div>
+            </div>
+            
+            <div class="sec-card">
+                <img src="assets/images/material-symbols_cloud.webp" alt="Secure Cloud Backup" class="sec-icon">
+                <div class="sec-content">
+                    <h4>Secure Cloud Backup</h4>
+                    <p>your data is backed up<br>safely in the cloud</p>
+                </div>
+            </div>
+            
+            <div class="sec-card">
+                <img src="assets/images/green tick.webp" alt="Compliance Certified" class="sec-icon">
+                <div class="sec-content">
+                    <h4>Compliance Certified</h4>
+                    <p>we adhere to global finance<br>compliance standards</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== SUMMARY SECTION ===================== -->
+    <section class="summary-section">
+        <h2 class="summary-title">Your Complete Financial Management Platform</h2>
+        <p class="summary-text">
+            From budgeting and expense tracking to investment monitoring and financial planning, Stackly gives you everything you need in one secure dashboard. Stay informed with real-time analytics and gain the confidence to make better financial decisions every day
+        </p>
+    </section>
+
+    <!-- ===================== FOOTER SECTION ===================== -->
+    <footer class="main-footer" id="main-footer">
+        <div class="footer-container">
+            <div class="footer-columns">
+                <div class="footer-column col-get-touch">
+                    <h3>Get In Touch</h3>
+                    <p>the quick fox jumps over the Stackly</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">
+                            <img src="assets/images/facebook.webp" alt="Facebook" />
+                        </a>
+                        <a href="#" class="social-icon">
+                            <img src="assets/images/instagram.webp" alt="Instagram" />
+                        </a>
+                        <a href="#" class="social-icon">
+                            <img src="assets/images/twitter.webp" alt="Twitter" />
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Company info</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Carrier</a></li>
+                        <li><a href="#">We are hiring</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Features</h3>
+                    <ul>
+                        <li><a href="#">Business Marketing</a></li>
+                        <li><a href="#">User Analytic</a></li>
+                        <li><a href="#">Live Chat</a></li>
+                        <li><a href="#">Unlimited Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">IOS &amp; Android</a></li>
+                        <li><a href="#">Watch a Demo</a></li>
+                        <li><a href="#">Customers</a></li>
+                        <li><a href="#">API</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>All Right Reserved in Stackly</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="validation.js"></script>
+</body>
+
+</html>
