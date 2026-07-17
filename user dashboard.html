@@ -1233,9 +1233,10 @@
                 }
 
                 // Close mobile sidebar if open
-                if (window.innerWidth < 768 && sidebar && !sidebar.classList.contains('hidden')) {
-                     sidebar.classList.add('hidden');
-                }
+                 if (window.innerWidth < 768 && sidebar) {
+                      sidebar.classList.add('hidden');
+                      sidebar.classList.remove('flex');
+                 }
             });
         });
 

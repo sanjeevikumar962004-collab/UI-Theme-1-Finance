@@ -279,8 +279,8 @@
                                 </button>
                             </div>
 
-                            <div class="flex flex-row items-center justify-between flex-1 gap-2">
-                                <div class="space-y-4 w-[55%]">
+                            <div class="flex flex-col sm:flex-row items-center justify-between flex-1 gap-4 sm:gap-2">
+                                <div class="space-y-4 w-full sm:w-[55%]">
                                     <div class="flex flex-col text-[9px] font-semibold text-textDark">
                                         <div class="flex items-center gap-2 mb-0.5"><span class="w-2 h-2 rounded-full bg-[#71B6D5]"></span><span class="font-bold">Operations</span></div>
                                         <div class="flex justify-between pl-4 text-[10px]"><span>$425,250</span><span class="font-normal text-gray-500">(37.8%)</span></div>
@@ -294,7 +294,7 @@
                                         <div class="flex justify-between pl-4 text-[10px]"><span>$275,350</span><span class="font-normal text-gray-500">(24.5%)</span></div>
                                     </div>
                                 </div>
-                                <div class="w-[45%] aspect-square relative -ml-4">
+                                <div class="w-full sm:w-[45%] max-w-[130px] sm:max-w-none aspect-square relative sm:-ml-4">
                                     <canvas id="expensesPieChart"></canvas>
                                     <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-center pointer-events-none w-full">
                                         <p class="text-[9px] font-bold text-gray-800 dark:text-gray-300 leading-tight">Total</p>
@@ -377,13 +377,13 @@
 
                 <!-- VIEW 2: TOTAL BALANCE -->
                 <div id="view-total-balance" class="content-view hidden animate-[fadeIn_0.3s_ease-in-out]">
-                    <div class="bg-cardBg rounded-[20px] p-8 shadow-sm mb-6 flex items-center justify-between">
+                    <div class="bg-cardBg rounded-[20px] p-6 sm:p-8 shadow-sm mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
                         <div>
                             <p class="text-sm font-semibold text-gray-500 mb-2">Aggregated Net Worth</p>
-                            <h2 class="text-5xl font-extrabold text-textDark">$12,525,050.00</h2>
+                            <h2 class="text-3xl sm:text-5xl font-extrabold text-textDark break-all">$12,525,050.00</h2>
                             <p class="text-positive font-bold text-sm mt-3"><i class="fa-solid fa-arrow-trend-up"></i> +4.5% from last month</p>
                         </div>
-                        <button class="bg-textDark text-white px-6 py-3 rounded-lg font-bold hover:bg-gray-800 transition-colors">Withdraw Funds</button>
+                        <button class="bg-textDark text-white px-6 py-3 rounded-lg font-bold hover:bg-gray-800 transition-colors w-full sm:w-auto text-center">Withdraw Funds</button>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div class="bg-cardBg rounded-[20px] p-6 border-t-4 border-accentBlue">
@@ -551,108 +551,112 @@
 
                 <!-- VIEW 6: MONTHLY REPORT -->
                 <div id="view-monthly" class="content-view hidden animate-[fadeIn_0.3s_ease-in-out]">
-                    <div class="bg-cardBg rounded-[20px] p-8 shadow-sm">
-                        <div class="flex justify-between items-center mb-8">
+                    <div class="bg-cardBg rounded-[20px] p-6 sm:p-8 shadow-sm">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
                             <div>
                                 <h2 class="text-2xl font-bold text-textDark">October 2023 Report</h2>
                                 <p class="text-gray-500">Generated on Nov 1, 2023</p>
                             </div>
-                            <button class="bg-accentBlue text-white px-5 py-2.5 rounded-lg font-bold hover:bg-blue-600 flex items-center gap-2">
+                            <button class="bg-accentBlue text-white px-5 py-2.5 rounded-lg font-bold hover:bg-blue-600 flex items-center gap-2 w-full sm:w-auto justify-center">
                                 <i class="fa-solid fa-download"></i> Download PDF
                             </button>
                         </div>
-                        <table class="w-full text-left">
-                            <thead>
-                                <tr class="text-gray-400 border-b border-gray-200">
-                                    <th class="pb-3 font-semibold">Metric</th>
-                                    <th class="pb-3 font-semibold">Previous Month</th>
-                                    <th class="pb-3 font-semibold">Current Month</th>
-                                    <th class="pb-3 font-semibold text-right">Growth</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-textDark text-sm font-medium">
-                                <tr class="border-b border-gray-100">
-                                    <td class="py-4">Gross Volume</td>
-                                    <td class="py-4">$1,850,000</td>
-                                    <td class="py-4">$2,450,120</td>
-                                    <td class="py-4 text-right text-positive">+32.4%</td>
-                                </tr>
-                                <tr class="border-b border-gray-100">
-                                    <td class="py-4">Net Profit</td>
-                                    <td class="py-4">$980,000</td>
-                                    <td class="py-4">$1,324,630</td>
-                                    <td class="py-4 text-right text-positive">+35.1%</td>
-                                </tr>
-                                <tr class="border-b border-gray-100">
-                                    <td class="py-4">Operating Expenses</td>
-                                    <td class="py-4">$870,000</td>
-                                    <td class="py-4">$1,125,340</td>
-                                    <td class="py-4 text-right text-negative">+29.3%</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="overflow-x-auto w-full">
+                            <table class="w-full text-left min-w-[500px]">
+                                <thead>
+                                    <tr class="text-gray-400 border-b border-gray-200">
+                                        <th class="pb-3 font-semibold">Metric</th>
+                                        <th class="pb-3 font-semibold">Previous Month</th>
+                                        <th class="pb-3 font-semibold">Current Month</th>
+                                        <th class="pb-3 font-semibold text-right">Growth</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-textDark text-sm font-medium">
+                                    <tr class="border-b border-gray-100">
+                                        <td class="py-4">Gross Volume</td>
+                                        <td class="py-4">$1,850,000</td>
+                                        <td class="py-4">$2,450,120</td>
+                                        <td class="py-4 text-right text-positive">+32.4%</td>
+                                    </tr>
+                                    <tr class="border-b border-gray-100">
+                                        <td class="py-4">Net Profit</td>
+                                        <td class="py-4">$980,000</td>
+                                        <td class="py-4">$1,324,630</td>
+                                        <td class="py-4 text-right text-positive">+35.1%</td>
+                                    </tr>
+                                    <tr class="border-b border-gray-100">
+                                        <td class="py-4">Operating Expenses</td>
+                                        <td class="py-4">$870,000</td>
+                                        <td class="py-4">$1,125,340</td>
+                                        <td class="py-4 text-right text-negative">+29.3%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
                 <!-- VIEW 7: RECENT TRANSACTIONS -->
                 <div id="view-transactions" class="content-view hidden animate-[fadeIn_0.3s_ease-in-out]">
                     <div class="bg-cardBg rounded-[20px] p-6 shadow-sm">
-                        <div class="flex justify-between items-center mb-6">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                             <h2 class="text-xl font-bold text-textDark">All Transactions</h2>
-                            <div class="flex gap-2">
-                                <input type="text" placeholder="Search..." class="px-4 py-2 rounded-lg border border-gray-200 text-sm focus:outline-none dark:bg-[#1E293B] dark:border-gray-600">
+                            <div class="flex gap-2 w-full sm:w-auto">
+                                <input type="text" placeholder="Search..." class="w-full sm:w-auto px-4 py-2 rounded-lg border border-gray-200 text-sm focus:outline-none dark:bg-[#1E293B] dark:border-gray-600">
                                 <button class="px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-semibold hover:bg-gray-50 dark:bg-[#1E293B] dark:border-gray-600 dark:text-white">Filter</button>
                             </div>
                         </div>
-                        <table class="w-full text-left">
-                            <thead>
-                                <tr class="text-gray-400 text-xs uppercase tracking-wider border-b border-gray-200">
-                                    <th class="pb-3 font-semibold">Transaction ID</th>
-                                    <th class="pb-3 font-semibold">Date</th>
-                                    <th class="pb-3 font-semibold">Description</th>
-                                    <th class="pb-3 font-semibold">Amount</th>
-                                    <th class="pb-3 font-semibold text-right">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-sm font-medium">
-                                <tr class="border-b border-gray-100">
-                                    <td class="py-4 text-gray-500">#TRX-9021</td>
-                                    <td class="py-4 text-textDark">Oct 24, 2023</td>
-                                    <td class="py-4 text-textDark">Stripe Payout</td>
-                                    <td class="py-4 text-positive">+$45,200.00</td>
-                                    <td class="py-4 text-right"><span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">Completed</span></td>
-                                </tr>
-                                <tr class="border-b border-gray-100">
-                                    <td class="py-4 text-gray-500">#TRX-9022</td>
-                                    <td class="py-4 text-textDark">Oct 23, 2023</td>
-                                    <td class="py-4 text-textDark">AWS Hosting</td>
-                                    <td class="py-4 text-textDark">-$4,120.50</td>
-                                    <td class="py-4 text-right"><span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">Completed</span></td>
-                                </tr>
-                                <tr class="border-b border-gray-100">
-                                    <td class="py-4 text-gray-500">#TRX-9023</td>
-                                    <td class="py-4 text-textDark">Oct 22, 2023</td>
-                                    <td class="py-4 text-textDark">Client Refund</td>
-                                    <td class="py-4 text-textDark">-$150.00</td>
-                                    <td class="py-4 text-right"><span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-xs">Pending</span></td>
-                                </tr>
-                                <tr class="border-b border-gray-100">
-                                    <td class="py-4 text-gray-500">#TRX-9024</td>
-                                    <td class="py-4 text-textDark">Oct 21, 2023</td>
-                                    <td class="py-4 text-textDark">Wire Transfer (In)</td>
-                                    <td class="py-4 text-positive">+$12,500.00</td>
-                                    <td class="py-4 text-right"><span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">Completed</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="overflow-x-auto w-full">
+                            <table class="w-full text-left min-w-[600px]">
+                                <thead>
+                                    <tr class="text-gray-400 text-xs uppercase tracking-wider border-b border-gray-200">
+                                        <th class="pb-3 font-semibold">Transaction ID</th>
+                                        <th class="pb-3 font-semibold">Date</th>
+                                        <th class="pb-3 font-semibold">Description</th>
+                                        <th class="pb-3 font-semibold">Amount</th>
+                                        <th class="pb-3 font-semibold text-right">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-sm font-medium">
+                                    <tr class="border-b border-gray-100">
+                                        <td class="py-4 text-gray-500">#TRX-9021</td>
+                                        <td class="py-4 text-textDark">Oct 24, 2023</td>
+                                        <td class="py-4 text-textDark">Stripe Payout</td>
+                                        <td class="py-4 text-positive">+$45,200.00</td>
+                                        <td class="py-4 text-right"><span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">Completed</span></td>
+                                    </tr>
+                                    <tr class="border-b border-gray-100">
+                                        <td class="py-4 text-gray-500">#TRX-9022</td>
+                                        <td class="py-4 text-textDark">Oct 23, 2023</td>
+                                        <td class="py-4 text-textDark">AWS Hosting</td>
+                                        <td class="py-4 text-textDark">-$4,120.50</td>
+                                        <td class="py-4 text-right"><span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">Completed</span></td>
+                                    </tr>
+                                    <tr class="border-b border-gray-100">
+                                        <td class="py-4 text-gray-500">#TRX-9023</td>
+                                        <td class="py-4 text-textDark">Oct 22, 2023</td>
+                                        <td class="py-4 text-textDark">Client Refund</td>
+                                        <td class="py-4 text-textDark">-$150.00</td>
+                                        <td class="py-4 text-right"><span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-xs">Pending</span></td>
+                                    </tr>
+                                    <tr class="border-b border-gray-100">
+                                        <td class="py-4 text-gray-500">#TRX-9024</td>
+                                        <td class="py-4 text-textDark">Oct 21, 2023</td>
+                                        <td class="py-4 text-textDark">Wire Transfer (In)</td>
+                                        <td class="py-4 text-positive">+$12,500.00</td>
+                                        <td class="py-4 text-right"><span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">Completed</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
                 <!-- VIEW 8: BILLS & INVOICES -->
                 <div id="view-invoices" class="content-view hidden animate-[fadeIn_0.3s_ease-in-out]">
-                    <div class="flex justify-between items-center mb-6">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                         <h2 class="text-xl font-bold text-textDark">Pending Invoices</h2>
-                        <button class="bg-black text-white dark:bg-white dark:text-black px-4 py-2 rounded-lg text-sm font-bold">+ Create Invoice</button>
+                        <button class="bg-black text-white dark:bg-white dark:text-black px-4 py-2 rounded-lg text-sm font-bold w-full sm:w-auto text-center">+ Create Invoice</button>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div class="bg-cardBg rounded-[20px] p-6 shadow-sm border border-gray-100">
@@ -879,6 +883,13 @@
                 document.getElementById('header-title').innerText = titles[targetId][0];
             }
             document.getElementById('header-subtitle').innerText = titles[targetId][1];
+
+            // Close mobile sidebar if open
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar && window.innerWidth < 768) {
+                sidebar.classList.add('hidden');
+                sidebar.classList.remove('flex');
+            }
         }
 
         // Theme Toggle Logic
