@@ -1230,6 +1230,9 @@
                 // Update Header Title
                 if (headerTitle) {
                     headerTitle.innerText = linkText;
+                    if (window.animateText) {
+                        window.animateText(headerTitle);
+                    }
                 }
 
                 // Close mobile sidebar if open

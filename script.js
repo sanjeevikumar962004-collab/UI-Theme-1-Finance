@@ -4,6 +4,22 @@
             nav-link active state, smooth CTA interactions
    ============================================================ */
 
+// Load GSAP and Text Animations dynamically if not already loaded
+(function() {
+    window.stacklyAnimLoaded = window.stacklyAnimLoaded || false;
+    if (!window.stacklyAnimLoaded) {
+        window.stacklyAnimLoaded = true;
+        const gsapScript = document.createElement("script");
+        gsapScript.src = "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js";
+        gsapScript.onload = () => {
+            const animScript = document.createElement("script");
+            animScript.src = "text-animations.js";
+            document.head.appendChild(animScript);
+        };
+        document.head.appendChild(gsapScript);
+    }
+})();
+
 (function () {
   'use strict';
 

@@ -7,6 +7,22 @@
  * 4. Allowed pages check in global click handler to navigate to 404.html properly
  */
 
+// Load GSAP and Text Animations dynamically if not already loaded
+(function() {
+    window.stacklyAnimLoaded = window.stacklyAnimLoaded || false;
+    if (!window.stacklyAnimLoaded) {
+        window.stacklyAnimLoaded = true;
+        const gsapScript = document.createElement("script");
+        gsapScript.src = "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js";
+        gsapScript.onload = () => {
+            const animScript = document.createElement("script");
+            animScript.src = "text-animations.js";
+            document.head.appendChild(animScript);
+        };
+        document.head.appendChild(gsapScript);
+    }
+})();
+
 document.addEventListener("DOMContentLoaded", () => {
     // 1. Inject Premium Validation CSS Styles Dynamically
     const style = document.createElement("style");
@@ -200,6 +216,47 @@ document.addEventListener("DOMContentLoaded", () => {
             font-size: 15px;
             display: inline-flex;
             align-items: center;
+        }
+
+        /* Premium Global Hover Effects for all buttons, links styled as buttons, and inputs */
+        button, 
+        .btn-member, 
+        .btn-primary, 
+        .btn-secondary, 
+        .btn-role-tab, 
+        .btn-support-talk, 
+        .btn-contact-hero, 
+        .btn-back-home, 
+        .hero-btn,
+        input[type="submit"] {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+        }
+
+        button:hover, 
+        .btn-member:hover, 
+        .btn-primary:hover, 
+        .btn-secondary:hover, 
+        .btn-support-talk:hover, 
+        .btn-contact-hero:hover, 
+        .btn-back-home:hover, 
+        .hero-btn:hover,
+        input[type="submit"]:hover {
+            transform: translateY(-3px) scale(1.03) !important;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+            filter: brightness(1.1) !important;
+        }
+
+        button:active, 
+        .btn-member:active, 
+        .btn-primary:active, 
+        .btn-secondary:active, 
+        .btn-support-talk:active, 
+        .btn-contact-hero:active, 
+        .btn-back-home:active, 
+        .hero-btn:active,
+        input[type="submit"]:active {
+            transform: translateY(-1px) scale(0.98) !important;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15) !important;
         }
     `;
     document.head.appendChild(style);

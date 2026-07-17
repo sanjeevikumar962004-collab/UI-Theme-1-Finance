@@ -884,6 +884,11 @@
             }
             document.getElementById('header-subtitle').innerText = titles[targetId][1];
 
+            // Animate title text
+            if (window.animateText) {
+                window.animateText(document.getElementById('header-title'));
+            }
+
             // Close mobile sidebar if open
             const sidebar = document.getElementById('sidebar');
             if (sidebar && window.innerWidth < 768) {
