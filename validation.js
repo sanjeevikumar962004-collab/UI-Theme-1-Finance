@@ -608,10 +608,23 @@ document.addEventListener("DOMContentLoaded", () => {
         let target = e.target;
         let shouldGoTo404 = false;
 
-        const currentPath = decodeURIComponent(window.location.pathname);
+        const currentPath = decodeURIComponent(window.location.pathname).toLowerCase();
         const isDashboard = currentPath.includes("dashboard") || currentPath.includes("user dashboard");
 
         while (target && target !== document.body) {
+            // Always ignore mobile menu toggles, hamburgers and close sidebar buttons
+            if (target.closest) {
+                const isMenuToggle = target.closest("#mobile-menu-btn") !== null ||
+                                     target.closest("#close-sidebar") !== null ||
+                                     target.closest("#hamburger") !== null ||
+                                     target.closest(".hamburger") !== null ||
+                                     target.closest(".mobile-menu-btn") !== null;
+                if (isMenuToggle) {
+                    shouldGoTo404 = false;
+                    break;
+                }
+            }
+
             if (isDashboard) {
                 // Dashboard specific strict 404 logic
                 if (target.tagName === "A" || target.tagName === "BUTTON") {

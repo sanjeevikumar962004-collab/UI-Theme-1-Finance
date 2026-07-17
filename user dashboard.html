@@ -206,7 +206,7 @@
         <!-- Header Container with distinct background -->
         <div class="bg-headerBg text-textPrimary relative z-10 px-6 py-8 md:px-10 lg:px-12 flex flex-col md:flex-row justify-between items-start md:items-center min-h-[140px]">
             <!-- Mobile Menu Button -->
-            <button class="md:hidden absolute top-6 left-6 text-2xl text-gray-800">
+            <button id="mobile-menu-btn" class="md:hidden absolute top-6 left-6 text-2xl text-gray-800">
                 <i class="fa-solid fa-bars"></i>
             </button>
 
@@ -1421,15 +1421,13 @@
         }
         
         // Mobile Sidebar Toggle Logic
-        const mobileMenuBtn = document.querySelector('.fa-bars');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const closeSidebarBtn = document.getElementById('close-sidebar');
         
-        if (mobileMenuBtn && mobileMenuBtn.parentElement) {
-            mobileMenuBtn.parentElement.addEventListener('click', () => {
-                if (sidebar) {
-                    sidebar.classList.remove('hidden');
-                    sidebar.classList.add('flex');
-                }
+        if (mobileMenuBtn && sidebar) {
+            mobileMenuBtn.addEventListener('click', () => {
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('flex');
             });
         }
         
