@@ -1578,6 +1578,23 @@ a {
   gap: 40px;
 }
 
+.footer-logo-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  transition: opacity var(--tr-fast);
+}
+
+.footer-logo-link:hover {
+  opacity: 0.85;
+}
+
+.footer-logo-img {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0);
+}
+
 .footer-column h3 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
@@ -2224,6 +2241,25 @@ a {
   .card-grid-3 {
     grid-template-columns: repeat(2, 1fr);
   }
+  .about-hero {
+    padding: 120px 0 60px 0;
+  }
+  .about-hero-content h1 {
+    font-size: 34px;
+  }
+  .about-hero-content p {
+    font-size: 20px;
+    margin-bottom: 30px;
+  }
+  .who-title {
+    font-size: 28px;
+  }
+  .card-title {
+    font-size: 24px;
+  }
+  .section-title {
+    font-size: 28px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -2236,8 +2272,88 @@ a {
   .team-img, .team-info {
     width: 100%;
   }
+  .what-clients-say {
+    padding: 40px 0;
+  }
   .testimonial-single {
-    padding: 30px 20px;
+    padding: 25px 15px;
+  }
+  .client-quote {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .client-name {
+    font-size: 14px;
+  }
+  .client-role {
+    font-size: 12px;
+  }
+  .about-container {
+    padding: 0 20px;
+  }
+  .about-hero-content h1 {
+    font-size: 28px;
+  }
+  .about-hero-content p {
+    font-size: 18px;
+  }
+  .who-title {
+    font-size: 24px;
+  }
+  .card-title {
+    font-size: 22px;
+  }
+  .section-title {
+    font-size: 24px;
+  }
+  .btn-secondary {
+    width: 100%;
+    max-width: 281px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-hero {
+    padding: 100px 0 40px 0;
+  }
+  .about-hero-content h1 {
+    font-size: 24px;
+  }
+  .about-hero-content p {
+    font-size: 16px;
+  }
+  .who-subtitle {
+    font-size: 18px;
+  }
+  .who-title {
+    font-size: 20px;
+  }
+  .card-title {
+    font-size: 18px;
+  }
+  .section-title {
+    font-size: 20px;
+  }
+  .btn-primary, .btn-secondary {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+  .about-card {
+    padding: 25px 20px;
+  }
+  .what-clients-say {
+    padding: 30px 0;
+  }
+  .client-quote {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .client-name {
+    font-size: 13px;
+  }
+  .client-role {
+    font-size: 11px;
   }
 }
 

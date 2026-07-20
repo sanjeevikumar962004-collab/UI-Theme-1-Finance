@@ -295,6 +295,60 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.style.overflow = "hidden";
     };
 
+    // Function to show inline success message
+    const showInlineSuccess = (form, message) => {
+        const existing = form.querySelector(".inline-success-alert");
+        if (existing) {
+            existing.remove();
+        }
+
+        const alertDiv = document.createElement("div");
+        alertDiv.className = "inline-success-alert";
+        alertDiv.style.cssText = `
+            margin-top: 20px;
+            padding: 15px 20px;
+            background: #E8F5E9;
+            color: #2E7D32;
+            border-left: 5px solid #4CAF50;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            text-align: left;
+            width: 100%;
+            grid-column: 1 / -1;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        `;
+        alertDiv.innerHTML = `
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="flex-shrink: 0;">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+            <span>${message}</span>
+        `;
+        
+        form.appendChild(alertDiv);
+        
+        // Trigger reflow
+        alertDiv.offsetHeight;
+        alertDiv.style.opacity = "1";
+
+        // Scroll to the alert message smoothly
+        alertDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+        // Hide message after 8 seconds
+        setTimeout(() => {
+            alertDiv.style.opacity = "0";
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 300);
+        }, 8000);
+    };
+
     // Function to show toast
     const showToast = (message) => {
         let toast = document.getElementById("stackly-toast");
@@ -400,8 +454,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
                 if (isValid) {
-                    // Success Overlay
-                    showSuccessModal("Message Logged", "Thank you! Our financial advisors have received your query and will contact you shortly.");
+                    // Inline Success Message
+                    showInlineSuccess(form, "Thank you! Our financial advisors have received your query and will contact you shortly.");
                     form.reset();
                     [nameInput, emailInput, subjectInput, msgTextarea].forEach(inp => {
                         if (inp) inp.classList.remove("is-valid", "is-invalid");

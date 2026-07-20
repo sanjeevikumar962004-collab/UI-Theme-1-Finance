@@ -515,8 +515,8 @@
             margin-bottom: 40px;
         }
         .features-grid {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 24px;
         }
         .feature-card {
@@ -526,13 +526,13 @@
             display: flex;
             flex-direction: column;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            height: 100%;
         }
         .half-card {
-            flex: 1 1 calc(50% - 12px);
             min-height: 280px;
         }
         .full-card {
-            flex: 1 1 100%;
+            grid-column: span 2;
             min-height: 220px;
             align-items: center;
         }
@@ -782,7 +782,12 @@
             .float-icon.wallet-icon img { width: 60px; height: 60px; }
             .float-icon.shield-icon img { width: 55px; height: 55px; }
 
-            .half-card { flex: 1 1 100%; }
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            .full-card {
+                grid-column: span 1;
+            }
         }
 
         @media (max-width: 991px) {
@@ -1377,6 +1382,9 @@
         <div class="footer-container">
             <div class="footer-columns">
                 <div class="footer-column col-get-touch">
+                    <a href="index.html" class="footer-logo-link" aria-label="Stackly Home">
+                        <img src="assets/images/stackly logo.webp" alt="Stackly Logo" class="footer-logo-img" />
+                    </a>
                     <h3>Get In Touch</h3>
                     <p>the quick fox jumps over the Stackly</p>
                     <div class="social-links">
@@ -1386,8 +1394,8 @@
                         <a href="#" class="social-icon">
                             <img src="assets/images/instagram.webp" alt="Instagram" />
                         </a>
-                        <a href="#" class="social-icon">
-                            <img src="assets/images/twitter.webp" alt="Twitter" />
+                        <a href="#" class="social-icon" aria-label="X (Twitter)">
+                            <img src="assets/images/twitter.svg" alt="X (Twitter)" />
                         </a>
                     </div>
                 </div>
