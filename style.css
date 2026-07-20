@@ -1560,13 +1560,14 @@ a {
    12. MAIN FOOTER
    ============================================================ */
 .main-footer {
-  background: #F6F6F6;
-  color: #252B42;
+  background: #737373;
+  color: #FFFFFF;
   padding: 80px 0 0 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .footer-container {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 40px;
   margin-bottom: 60px;
@@ -1574,32 +1575,32 @@ a {
 
 .footer-columns {
   display: grid;
-  grid-template-columns: 1.2fr 1fr 1fr 1fr;
-  gap: 40px;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 50px;
 }
 
 .footer-logo-link {
   display: inline-block;
   margin-bottom: 20px;
-  transition: opacity var(--tr-fast);
+  transition: transform var(--tr-fast);
 }
 
 .footer-logo-link:hover {
-  opacity: 0.85;
+  transform: translateY(-2px);
 }
 
 .footer-logo-img {
   height: 38px;
   width: auto;
   object-fit: contain;
-  filter: brightness(0);
+  filter: brightness(0) invert(1);
 }
 
 .footer-column h3 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
-  font-size: 16px;
-  color: #252B42;
+  font-size: 18px;
+  color: #FFFFFF;
   margin-bottom: 25px;
   text-align: left;
 }
@@ -1608,24 +1609,27 @@ a {
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
   font-size: 14px;
-  color: #737373;
+  color: #E6E6E6;
   line-height: 1.6;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   text-align: left;
 }
 
 .social-links {
   display: flex;
-  gap: 20px;
+  gap: 16px;
 }
 
 .social-icon {
-  display: inline-block;
-  transition: opacity var(--tr-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--tr-fast), opacity var(--tr-fast);
 }
 
 .social-icon:hover {
-  opacity: 0.8;
+  transform: scale(1.15);
+  opacity: 0.9;
 }
 
 .social-icon img {
@@ -1640,7 +1644,7 @@ a {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
   text-align: left;
 }
 
@@ -1648,16 +1652,18 @@ a {
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   font-size: 14px;
-  color: #737373;
-  transition: color var(--tr-fast);
+  color: #E6E6E6;
+  transition: color var(--tr-fast), padding-left var(--tr-fast);
+  display: inline-block;
 }
 
 .footer-column li a:hover {
-  color: #23A6F0;
+  color: #FFFFFF;
+  padding-left: 4px;
 }
 
 .footer-copyright {
-  background: #FFF;
+  background: #FFFFFF;
   padding: 25px 0;
   text-align: center;
   border-top: 1px solid #ECECEC;
@@ -1665,9 +1671,9 @@ a {
 
 .footer-copyright p {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 14px;
-  color: #737373;
+  color: #252B42;
   margin: 0;
 }
 
